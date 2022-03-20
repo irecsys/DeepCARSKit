@@ -28,7 +28,7 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 
 
 ## News & Updates
-**03/19/2022**: We release DeepCARSKit [v1.0.0](https://github.com/RUCAIBox/RecBole/releases/tag/v1.0.0).
+**03/19/2022**: We release DeepCARSKit v1.0.0
 
 ## API Documents
 You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https://github.com/irecsys/DeepCARSKit/tree/main/doc/build/html).
