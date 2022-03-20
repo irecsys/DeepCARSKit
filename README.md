@@ -31,7 +31,7 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 **03/19/2022**: We release DeepCARSKit v1.0.0
 
 ## API Documents
-You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https://github.com/irecsys/DeepCARSKit/tree/main/doc/build/html).
+You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https://carskit.github.io/doc/DeepCARSKit/index.html).
 
 We also suggest you to refer to [RecBole API](https://recbole.io/docs/).
 

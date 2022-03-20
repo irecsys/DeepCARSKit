@@ -32,7 +32,7 @@ setup(
     long_description_content_type="text/markdown",
     url='https://github.com/irecsys/DeepCARSKit',
     author='Yong Zheng',
-    author_email='irecsys@gmail.com',
+    author_email='DeepCARSKit@gmail.com',
     packages=[
         package for package in find_packages()
         if package.startswith('deepcarskit')
