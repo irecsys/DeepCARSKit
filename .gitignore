@@ -9,5 +9,5 @@ deepcarskit\__pycache__\
 saved\
 log\
 log_tensorboard\
-doc\source\
+doc\source\*.*
 !doc\build\
