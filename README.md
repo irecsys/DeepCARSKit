@@ -48,13 +48,12 @@ DeepCARSKit works with the following operating systems:
 
 DeepCARSKit requires Python version 3.7 or later, torch version 1.7.0 or later, and RecBole version 1.0.0 or later. 
 For more details, you can refer to the list of [requirements](https://github.com/irecsys/DeepCARSKit/blob/main/requirements.txt).
-
 If you want to use DeepCARSKit with GPU,
 please ensure that CUDA or cudatoolkit version is 9.2 or later.
 This requires NVIDIA driver version >= 396.26 (for Linux) or >= 397.44 (for Windows10).
 
 More info about installation from conda and pip will be released later.
-Currenly, you can make a git clone of the source codes.
+Currenly, you can make a git clone of the source codes. We will pulish it to pypi and conda in next release.
 
 ## Quick-Start
 With the source code, you can use the provided script for initial usage of our library:
