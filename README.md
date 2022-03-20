@@ -109,7 +109,7 @@ We welcome collaborations and contributors to the DeepCARSKit. Your names will b
 
 ## Sponsors
 The current project was supported by Google Cloud Platform. We are looking for more sponsors to support the development and distribution of this libraray.
-If you are interested in sponsorship, please let me know.
+If you are interested in sponsorship, please let me know. Our official email is DeepCARSKit [at] gmail [dot] com.
 
 ## License
 [MIT License](./LICENSE)
