@@ -1,0 +1,93 @@
+field_separator: ","
+seq_separator: " "
+
+gpu_id: 0
+use_gpu: True
+show_progress: False
+save_dataset: False
+save_dataloaders: False
+
+############### data setting ###############
+seed: 2022
+dataset: depaulmovie
+
+model: NeuCMFi
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+CONTEXT_SITUATION_FIELD: contexts
+USER_CONTEXT_FIELD: uc_id
+
+# note: you can use either load or unload, cannot use them both
+# load_col is used to load specific columns; unload_col is used to ignore selected columns
+# set "load_col: ~", if you want to load all cols
+# load_col: {'inter': ['user_id','item_id','rating','contexts','uc_id']}
+# unload_col: {'inter': ['contexts']}
+# by default, we load all cols, unless there are some special requirements
+load_col: ~
+
+# used for topN ranking only
+LABEL_FIELD: label
+threshold:
+    rating: 0
+# the current library does not support negative sampling
+neg_sampling: ~
+
+############### model setting ###############
+# General model
+epochs: 50
+train_batch_size: 500
+eval_batch_size: 409600
+learner: adam
+# learner: adam, RMSprop
+
+stopping_step: 10
+clip_grad_norm: ~
+# clip_grad_norm:  {'max_norm': 5, 'norm_type': 2}
+weight_decay: 0.0
+
+# NeuMF models
+mf_embedding_size: 64
+mlp_embedding_size: 64
+mlp_hidden_size: [128,64,32]
+learning_rate: 0.01
+dropout_prob: 0.3
+
+#tf_train: True
+mf_train: True
+mlp_train: True
+
+# Deep FM
+embedding_size: 64
+
+############### Evaluation setting ###############
+eval_args:
+  # split: {'RS': [0.8, 0.2]}
+  split: {'CV': 5}
+  group_by: user
+  mode: labeled
+  order: RO
+
+# indicate the task is ranking or rating prediction
+# evaluation metrics automatically selected based on True/False setting here
+ranking: False
+# indicate activation function for ranking task
+# LeakyReLu is the default activation function for both ranking or rating prediction
+sigmoid: False
+
+# define metrics for ranking and rating prediction tasks
+ranking_valid_metric: Recall@10
+ranking_metrics: ['Precision','Recall','NDCG','MRR','MAP']
+topk: [10,20,30]
+
+err_valid_metric: RMSE
+err_metrics: ['MAE','RMSE','AUC']
+
+############### Output setting ###############
+loss_decimal_place: 4
+metric_decimal_place: 4
+
+
+
+
+

@@ -1,0 +1,2 @@
+recursive-include deepcarskit/properties *
+recursive-include deepcarskit/dataset_example *
