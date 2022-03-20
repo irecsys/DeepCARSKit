@@ -10,3 +10,4 @@ saved\
 log\
 log_tensorboard\
 doc\source\
+!doc\build\
