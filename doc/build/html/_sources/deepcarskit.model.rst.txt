@@ -1,8 +1,7 @@
-deepcarskit.model package
+deepcarskit.model
 =========================
 
-Subpackages
------------
+
 
 .. toctree::
    :maxdepth: 4
@@ -10,27 +9,20 @@ Subpackages
    deepcarskit.model.fms
    deepcarskit.model.neucf
 
-Submodules
-----------
 
-deepcarskit.model.context\_recommender module
----------------------------------------------
 
 .. automodule:: deepcarskit.model.context_recommender
    :members:
    :undoc-members:
    :show-inheritance:
 
-deepcarskit.model.layers module
--------------------------------
 
 .. automodule:: deepcarskit.model.layers
    :members:
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+
 
 .. automodule:: deepcarskit.model
    :members:

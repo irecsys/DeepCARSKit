@@ -30,6 +30,12 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 ## News & Updates
 **03/19/2022**: We release DeepCARSKit [v1.0.0](https://github.com/RUCAIBox/RecBole/releases/tag/v1.0.0).
 
+## API Documents
+You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https://github.com/irecsys/DeepCARSKit/tree/main/doc/build/html).
+
+We also suggest you to refer to [RecBole API](https://recbole.io/docs/).
+
+
 ## Data Sets & Preparation
 A list of available data sets for research on context-aware recommender systems can be found [here](https://github.com/irecsys/CARSKit/tree/master/context-aware_data_sets).
 We provide two data sets (i.e., DePaulMovie and TripAdvisor) in the library. You can refer to its data format, such as depaulmovie.inter.
@@ -90,9 +96,7 @@ If you find DeepCARSKit useful for your research or development, please cite the
 @article{deepcarskit,
     title={DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library},
     author={Yong Zheng},
-    journal={Software Impacts},
-    year={2022},
-    publisher={Elsevier}
+    year={2022}
 }
 ```
 ## Contributing

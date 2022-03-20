@@ -1,6 +1,8 @@
 {% extends "!layout.html" %}
-
-  {% block menu %}
-    {{ super() }}
-    <a href="py-modindex.html">Module Index</a>
-  {% endblock %}
+{% block extrahead %}
+<script type="text/javascript">
+  window.onload = function() {
+    document.body.innerHTML = document.body.innerHTML.replace(/ module/g, '');
+  }
+</script>
+{% endblock %}

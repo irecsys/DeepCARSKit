@@ -1,8 +1,7 @@
-deepcarskit package
+deepcarskit
 ===================
 
-Subpackages
------------
+
 
 .. toctree::
    :maxdepth: 4
@@ -15,8 +14,7 @@ Subpackages
    deepcarskit.trainer
    deepcarskit.utils
 
-Module contents
----------------
+
 
 .. automodule:: deepcarskit
    :members:

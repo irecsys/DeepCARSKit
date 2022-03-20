@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>deepcarskit.data.dataset package &mdash; DeepCARSKit 1.0.0 documentation</title>
+  <title>deepcarskit.data.dataset &mdash; DeepCARSKit 1.0.0 documentation</title>
   
 
   
@@ -37,7 +37,15 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepcarskit.evaluator" href="deepcarskit.evaluator.html" />
+    <link rel="prev" title="deepcarskit.data.dataloader" href="deepcarskit.data.dataloader.html" />
+<script type="text/javascript">
+  window.onload = function() {
+    document.body.innerHTML = document.body.innerHTML.replace(/ module/g, '');
+  }
+</script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -76,29 +84,32 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-    
             
             
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">deepcarskit.data.dataset package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-deepcarskit.data.dataset.dataset">deepcarskit.data.dataset.dataset module</a><ul>
-<li><a class="reference internal" href="#deepcarskit-data-dataset">deepcarskit.data.dataset</a></li>
+              <p class="caption" role="heading"><span class="caption-text">API References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.config.html">deepcarskit.config</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="deepcarskit.data.html">deepcarskit.data</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="deepcarskit.data.dataloader.html">deepcarskit.data.dataloader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">deepcarskit.data.dataset</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">deepcarskit.data.dataset</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-deepcarskit.data.dataset">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deepcarskit.data.html#deepcarskit-data-utils">deepcarskit.data.utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.evaluator.html">deepcarskit.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.model.html">deepcarskit.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.quick_start.html">deepcarskit.quick_start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.trainer.html">deepcarskit.trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.utils.html">deepcarskit.utils</a></li>
 </ul>
-</div>
+
             
           
-    <a href="py-modindex.html">Module Index</a>
-  
         </div>
       </div>
     </nav>
@@ -140,7 +151,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>deepcarskit.data.dataset package</li>
+          <li><a href="deepcarskit.data.html">deepcarskit.data</a> &raquo;</li>
+        
+      <li>deepcarskit.data.dataset</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,15 +172,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="deepcarskit-data-dataset-package">
-<h1>deepcarskit.data.dataset package<a class="headerlink" href="#deepcarskit-data-dataset-package" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-deepcarskit.data.dataset.dataset">
-<span id="deepcarskit-data-dataset-dataset-module"></span><h2>deepcarskit.data.dataset.dataset module<a class="headerlink" href="#module-deepcarskit.data.dataset.dataset" title="Permalink to this headline">¶</a></h2>
-<section id="deepcarskit-data-dataset">
-<h3>deepcarskit.data.dataset<a class="headerlink" href="#deepcarskit-data-dataset" title="Permalink to this headline">¶</a></h3>
+  <section id="module-deepcarskit.data.dataset.dataset">
+<span id="deepcarskit-data-dataset"></span><h1>deepcarskit.data.dataset<a class="headerlink" href="#module-deepcarskit.data.dataset.dataset" title="Permalink to this headline">¶</a></h1>
+<section id="id1">
+<h2>deepcarskit.data.dataset<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.data.dataset.dataset.Dataset">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.data.dataset.dataset.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.data.dataset.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
@@ -677,17 +685,22 @@ tokens (str, list or numpy.ndarray): External tokens.</p>
 </dd></dl>
 
 </section>
-</section>
-<section id="module-deepcarskit.data.dataset">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-deepcarskit.data.dataset" title="Permalink to this headline">¶</a></h2>
-</section>
-</section>
+<span class="target" id="module-deepcarskit.data.dataset"></span></section>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="deepcarskit.evaluator.html" class="btn btn-neutral float-right" title="deepcarskit.evaluator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deepcarskit.data.dataloader.html" class="btn btn-neutral float-left" title="deepcarskit.data.dataloader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

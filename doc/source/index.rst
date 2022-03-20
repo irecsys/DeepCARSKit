@@ -7,8 +7,16 @@ Welcome to DeepCARSKit's documentation!
 =======================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: API References
+
+   deepcarskit.config
+   deepcarskit.data
+   deepcarskit.evaluator
+   deepcarskit.model
+   deepcarskit.quick_start
+   deepcarskit.trainer
+   deepcarskit.utils
 
 
 

@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>deepcarskit.trainer package &mdash; DeepCARSKit 1.0.0 documentation</title>
+  <title>deepcarskit.trainer &mdash; DeepCARSKit 1.0.0 documentation</title>
   
 
   
@@ -37,7 +37,15 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepcarskit.utils" href="deepcarskit.utils.html" />
+    <link rel="prev" title="deepcarskit.quick_start" href="deepcarskit.quick_start.html" />
+<script type="text/javascript">
+  window.onload = function() {
+    document.body.innerHTML = document.body.innerHTML.replace(/ module/g, '');
+  }
+</script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -76,29 +84,27 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-    
             
             
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">deepcarskit.trainer package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-deepcarskit.trainer.trainer">deepcarskit.trainer.trainer module</a><ul>
-<li><a class="reference internal" href="#recbole-trainer-trainer">recbole.trainer.trainer</a></li>
+              <p class="caption" role="heading"><span class="caption-text">API References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.config.html">deepcarskit.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.data.html">deepcarskit.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.evaluator.html">deepcarskit.evaluator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.model.html">deepcarskit.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.quick_start.html">deepcarskit.quick_start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepcarskit.trainer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#recbole-trainer-trainer">recbole.trainer.trainer</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-deepcarskit.trainer">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.utils.html">deepcarskit.utils</a></li>
 </ul>
-</li>
-</ul>
-</div>
+
             
           
-    <a href="py-modindex.html">Module Index</a>
-  
         </div>
       </div>
     </nav>
@@ -140,7 +146,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>deepcarskit.trainer package</li>
+      <li>deepcarskit.trainer</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,15 +165,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="deepcarskit-trainer-package">
-<h1>deepcarskit.trainer package<a class="headerlink" href="#deepcarskit-trainer-package" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-deepcarskit.trainer.trainer">
-<span id="deepcarskit-trainer-trainer-module"></span><h2>deepcarskit.trainer.trainer module<a class="headerlink" href="#module-deepcarskit.trainer.trainer" title="Permalink to this headline">¶</a></h2>
+  <section id="module-deepcarskit.trainer.trainer">
+<span id="deepcarskit-trainer"></span><h1>deepcarskit.trainer<a class="headerlink" href="#module-deepcarskit.trainer.trainer" title="Permalink to this headline">¶</a></h1>
 <section id="recbole-trainer-trainer">
-<h3>recbole.trainer.trainer<a class="headerlink" href="#recbole-trainer-trainer" title="Permalink to this headline">¶</a></h3>
+<h2>recbole.trainer.trainer<a class="headerlink" href="#recbole-trainer-trainer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.trainer.trainer.Trainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.trainer.</span></span><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.trainer.Trainer" title="Permalink to this definition">¶</a></dt>
@@ -205,10 +206,7 @@ load_best_model (bool, optional): whether load the best model in the training pr
 </dd></dl>
 
 </section>
-</section>
-<section id="module-deepcarskit.trainer">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-deepcarskit.trainer" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
+<span class="target" id="module-deepcarskit.trainer"></span><dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.trainer.KGATTrainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.</span></span><span class="sig-name descname"><span class="pre">KGATTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.KGATTrainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#deepcarskit.trainer.Trainer" title="recbole.trainer.trainer.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">recbole.trainer.trainer.Trainer</span></code></a></p>
@@ -324,13 +322,21 @@ callback_fn (callable): Optional callback function executed at end of epoch.</p>
 </dd></dl>
 
 </section>
-</section>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="deepcarskit.utils.html" class="btn btn-neutral float-right" title="deepcarskit.utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deepcarskit.quick_start.html" class="btn btn-neutral float-left" title="deepcarskit.quick_start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -37,7 +37,8 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx_rtd_theme'
 ]
 
 # Napoleon settings
@@ -89,4 +90,4 @@ html_theme_options = {
 
 templates_path = ['_templates']
 
-html_sidebars = { '**': ['globaltoc.html', 'py-modindex.html', 'sourcelink.html', 'searchbox.html'] }
+html_sidebars = {'**': ['fulltoc.html', 'relations.html', 'sourcelink.html', 'searchbox.html']}

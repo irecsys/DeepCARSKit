@@ -9,7 +9,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>deepcarskit.evaluator package &mdash; DeepCARSKit 1.0.0 documentation</title>
+  <title>deepcarskit.evaluator &mdash; DeepCARSKit 1.0.0 documentation</title>
   
 
   
@@ -37,7 +37,15 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="deepcarskit.model" href="deepcarskit.model.html" />
+    <link rel="prev" title="deepcarskit.data.dataset" href="deepcarskit.data.dataset.html" />
+<script type="text/javascript">
+  window.onload = function() {
+    document.body.innerHTML = document.body.innerHTML.replace(/ module/g, '');
+  }
+</script>
+
 </head>
 
 <body class="wy-body-for-nav">
@@ -76,37 +84,29 @@
 
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
-    
             
             
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">deepcarskit.evaluator package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-deepcarskit.evaluator.base_metric">deepcarskit.evaluator.base_metric module</a><ul>
-<li><a class="reference internal" href="#deepcarskit-evaluator-abstract-metric">deepcarskit.evaluator.abstract_metric</a></li>
+              <p class="caption" role="heading"><span class="caption-text">API References</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.config.html">deepcarskit.config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.data.html">deepcarskit.data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">deepcarskit.evaluator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#deepcarskit-evaluator-abstract-metric">deepcarskit.evaluator.abstract_metric</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recbole-evaluator-collector">recbole.evaluator.collector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deepcarskit-evaluator-evaluator">deepcarskit.evaluator.evaluator</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-deepcarskit.evaluator.collector">deepcarskit.evaluator.collector module</a><ul>
-<li><a class="reference internal" href="#recbole-evaluator-collector">recbole.evaluator.collector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.model.html">deepcarskit.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.quick_start.html">deepcarskit.quick_start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.trainer.html">deepcarskit.trainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deepcarskit.utils.html">deepcarskit.utils</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#module-deepcarskit.evaluator.evaluator">deepcarskit.evaluator.evaluator module</a><ul>
-<li><a class="reference internal" href="#deepcarskit-evaluator-evaluator">deepcarskit.evaluator.evaluator</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-deepcarskit.evaluator">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+
             
           
-    <a href="py-modindex.html">Module Index</a>
-  
         </div>
       </div>
     </nav>
@@ -148,7 +148,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>deepcarskit.evaluator package</li>
+      <li>deepcarskit.evaluator</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -167,15 +167,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="deepcarskit-evaluator-package">
-<h1>deepcarskit.evaluator package<a class="headerlink" href="#deepcarskit-evaluator-package" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-deepcarskit.evaluator.base_metric">
-<span id="deepcarskit-evaluator-base-metric-module"></span><h2>deepcarskit.evaluator.base_metric module<a class="headerlink" href="#module-deepcarskit.evaluator.base_metric" title="Permalink to this headline">¶</a></h2>
+  <section id="module-deepcarskit.evaluator.base_metric">
+<span id="deepcarskit-evaluator"></span><h1>deepcarskit.evaluator<a class="headerlink" href="#module-deepcarskit.evaluator.base_metric" title="Permalink to this headline">¶</a></h1>
 <section id="deepcarskit-evaluator-abstract-metric">
-<h3>deepcarskit.evaluator.abstract_metric<a class="headerlink" href="#deepcarskit-evaluator-abstract-metric" title="Permalink to this headline">¶</a></h3>
+<h2>deepcarskit.evaluator.abstract_metric<a class="headerlink" href="#deepcarskit-evaluator-abstract-metric" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.AbstractMetric">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.base_metric.</span></span><span class="sig-name descname"><span class="pre">AbstractMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.AbstractMetric" title="Permalink to this definition">¶</a></dt>
@@ -307,11 +302,8 @@ and number of positive items for each user.</p>
 </dd></dl>
 
 </section>
-</section>
-<section id="module-deepcarskit.evaluator.collector">
-<span id="deepcarskit-evaluator-collector-module"></span><h2>deepcarskit.evaluator.collector module<a class="headerlink" href="#module-deepcarskit.evaluator.collector" title="Permalink to this headline">¶</a></h2>
-<section id="recbole-evaluator-collector">
-<h3>recbole.evaluator.collector<a class="headerlink" href="#recbole-evaluator-collector" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-deepcarskit.evaluator.collector"></span><section id="recbole-evaluator-collector">
+<h2>recbole.evaluator.collector<a class="headerlink" href="#recbole-evaluator-collector" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.evaluator.collector.Collector">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.collector.</span></span><span class="sig-name descname"><span class="pre">Collector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.collector.Collector" title="Permalink to this definition">¶</a></dt>
@@ -337,11 +329,8 @@ positive_i(Torch.Tensor): the positive item id for each user.</p>
 </dd></dl>
 
 </section>
-</section>
-<section id="module-deepcarskit.evaluator.evaluator">
-<span id="deepcarskit-evaluator-evaluator-module"></span><h2>deepcarskit.evaluator.evaluator module<a class="headerlink" href="#module-deepcarskit.evaluator.evaluator" title="Permalink to this headline">¶</a></h2>
-<section id="deepcarskit-evaluator-evaluator">
-<h3>deepcarskit.evaluator.evaluator<a class="headerlink" href="#deepcarskit-evaluator-evaluator" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-deepcarskit.evaluator.evaluator"></span><section id="deepcarskit-evaluator-evaluator">
+<h2>deepcarskit.evaluator.evaluator<a class="headerlink" href="#deepcarskit-evaluator-evaluator" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.evaluator.evaluator.Evaluator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.evaluator.</span></span><span class="sig-name descname"><span class="pre">Evaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.evaluator.Evaluator" title="Permalink to this definition">¶</a></dt>
@@ -362,17 +351,22 @@ positive_i(Torch.Tensor): the positive item id for each user.</p>
 </dd></dl>
 
 </section>
-</section>
-<section id="module-deepcarskit.evaluator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-deepcarskit.evaluator" title="Permalink to this headline">¶</a></h2>
-</section>
-</section>
+<span class="target" id="module-deepcarskit.evaluator"></span></section>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="deepcarskit.model.html" class="btn btn-neutral float-right" title="deepcarskit.model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deepcarskit.data.dataset.html" class="btn btn-neutral float-left" title="deepcarskit.data.dataset" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
