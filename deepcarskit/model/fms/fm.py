@@ -17,11 +17,13 @@
 r"""
 FM
 ################################################
-Reference:
-    Steffen Rendle et al. "Factorization Machines." in ICDM 2010.
+References
+-----
+Steffen Rendle et al. "Factorization Machines." in ICDM 2010.
 
-Notes:
-    context variables are treated as individual dimensions
+Notes
+-----
+context variables are treated as individual dimensions
 """
 
 import torch.nn as nn

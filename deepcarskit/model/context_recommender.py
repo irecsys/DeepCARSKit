@@ -35,10 +35,16 @@ class ContextRecommender(AbstractRecommender):
         self.USER_ID = config['USER_ID_FIELD']
         self.ITEM_ID = config['ITEM_ID_FIELD']
         self.CONTEXT_SITUATION_ID = config['CONTEXT_SITUATION_FIELD']
+
         if config['ranking']:
             self.LABEL = config['LABEL_FIELD']
+            if config['sigmoid']:
+                self.actfun = nn.Sigmoid()
+                self.loss = nn.BCELoss()
         else:
             self.LABEL = config['RATING_FIELD']
+            self.actfun = nn.LeakyReLU()
+            self.loss = nn.MSELoss()
 
         self.CONTEXTS = []
         for i in range(2, len(self.field_names)):

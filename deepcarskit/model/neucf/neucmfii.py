@@ -1,8 +1,11 @@
-# @Time   : 2021/12
+# -*- coding: utf-8 -*-
+# @Time   : 2022
 # @Author : Yong Zheng
 
+
+
 r"""
-NeuCMFi
+NeuCMFii
 ################################################
 References
 -----
@@ -10,9 +13,9 @@ pending
 
 Notes
 -----
-1). NeuCMFi has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.
+1). NeuCMFii has 4 towers: MLP tower with contexts, MF tower with UI, MF with UC, MF with IC
 
-2). NeuCMFi creates embedding for each individual context conditions.
+2). ii => we create embeddings for each individual context conditions when we fuse contexts into the MLP and MF towers
 """
 
 import torch
@@ -24,12 +27,12 @@ from recbole.model.layers import MLPLayers
 from recbole.utils import InputType, EvaluatorType
 
 
-class NeuCMFi(ContextRecommender):
+class NeuCMFii(ContextRecommender):
 
     input_type = InputType.POINTWISE
 
     def __init__(self, config, dataset):
-        super(NeuCMFi, self).__init__(config, dataset)
+        super(NeuCMFii, self).__init__(config, dataset)
 
         # load parameters info
         self.mf_embedding_size = config['mf_embedding_size']
@@ -45,19 +48,22 @@ class NeuCMFi(ContextRecommender):
         # define layers and loss
         self.user_mf_embedding = nn.Embedding(self.n_users, self.mf_embedding_size)
         self.item_mf_embedding = nn.Embedding(self.n_items, self.mf_embedding_size)
+        self.context_situation_mf_embedding = []
         self.user_mlp_embedding = nn.Embedding(self.n_users, self.mlp_embedding_size)
         self.item_mlp_embedding = nn.Embedding(self.n_items, self.mlp_embedding_size)
         self.context_dimensions_mlp_embedding = []
         for i in range(0, self.n_contexts_dim):
             self.context_dimensions_mlp_embedding.append(nn.Embedding(self.n_contexts_conditions[i], self.mlp_embedding_size).to(self.device))
+            self.context_situation_mf_embedding.append(nn.Embedding(self.n_contexts_conditions[i], self.mf_embedding_size).to(self.device))
+        num_mf_towers = 1 + self.n_contexts_dim + self.n_contexts_dim
 
         # mlp layers = user, item, context_situation
         self.mlp_layers = MLPLayers([(2 + self.n_contexts_dim) * self.mlp_embedding_size] + self.mlp_hidden_size, self.dropout_prob)
         self.mlp_layers.logger = None  # remove logger to use torch.save()
         if self.mf_train and self.mlp_train:
-            self.predict_layer = nn.Linear(self.mf_embedding_size + self.mlp_hidden_size[-1], 1)
+            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size + self.mlp_hidden_size[-1], 1)
         elif self.mf_train:
-            self.predict_layer = nn.Linear(self.mf_embedding_size, 1)
+            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size, 1)
         elif self.mlp_train:
             self.predict_layer = nn.Linear(self.mlp_hidden_size[-1], 1)
 
@@ -96,6 +102,10 @@ class NeuCMFi(ContextRecommender):
     def forward(self, user, item, context_situation_list):
         user_mf_e = self.user_mf_embedding(user)
         item_mf_e = self.item_mf_embedding(item)
+        context_situation_mf_e = []
+        for i in range(0, self.n_contexts_dim):
+            condition = context_situation_list[i]
+            context_situation_mf_e.append(self.context_situation_mf_embedding[i](condition))
         user_mlp_e = self.user_mlp_embedding(user)
         item_mlp_e = self.item_mlp_embedding(item)
         context_situation_e = None
@@ -107,13 +117,21 @@ class NeuCMFi(ContextRecommender):
             else:
                 context_situation_e = torch.cat((context_situation_e, embd), -1)
         if self.mf_train:
-            mf_output = torch.mul(user_mf_e, item_mf_e)  # [batch_size, embedding_size]
+            mf_ui_output = torch.mul(user_mf_e, item_mf_e)  # [batch_size, embedding_size]
+            mf_uc_output = torch.mul(user_mf_e, context_situation_mf_e[0])  # [batch_size, embedding_size]
+            for i in range(1, self.n_contexts_dim):
+                mf_uc_output = torch.cat((mf_uc_output, torch.mul(user_mf_e, context_situation_mf_e[i])), -1)
+            mf_ic_output = torch.mul(item_mf_e, context_situation_mf_e[0])  # [batch_size, embedding_size]
+            for i in range(1, self.n_contexts_dim):
+                mf_ic_output = torch.cat((mf_ic_output, torch.mul(item_mf_e, context_situation_mf_e[i])), -1)
         if self.mlp_train:
             mlp_output = self.mlp_layers(torch.cat((user_mlp_e, item_mlp_e, context_situation_e), -1))  # [batch_size, layers[-1]]
+
         if self.mf_train and self.mlp_train:
-            output = self.actfun(self.predict_layer(torch.cat((mf_output, mlp_output), -1)))
+            output = self.actfun(
+                self.predict_layer(torch.cat((mf_ui_output, mf_uc_output, mf_ic_output, mlp_output), -1)))
         elif self.mf_train:
-            output = self.actfun(self.predict_layer(mf_output))
+            output = self.actfun(self.predict_layer(torch.cat((mf_ui_output, mf_uc_output, mf_ic_output), -1)))
         elif self.mlp_train:
             output = self.actfun(self.predict_layer(mlp_output))
         else:

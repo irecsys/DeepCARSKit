@@ -5,7 +5,15 @@
 r"""
 NeuCMFw
 ################################################
-using contexts as a whole/a single dimension
+References
+-----
+Unger, M., Tuzhilin, A., & Livne, A. (2020). Context-aware recommendations based on deep learning frameworks. ACM Transactions on Management Information Systems (TMIS), 11(2), 1-15.
+
+Notes
+-----
+1). NeuCMFw has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.
+
+2). NeuCMFw utilizes context situation as a whole/a single dimension to be embedded
 """
 
 import torch
@@ -18,28 +26,11 @@ from recbole.utils import InputType, EvaluatorType
 
 
 class NeuCMFw(ContextRecommender):
-    r"""NeuCMF fuses 'contexts' into the MLP tower, together with MF tower
-    The version i => create embedding for the whole context situation
 
-    Note:
-
-        Our implementation only contains a rough pretraining function.
-
-    """
     input_type = InputType.POINTWISE
 
     def __init__(self, config, dataset):
         super(NeuCMFw, self).__init__(config, dataset)
-
-        # load dataset info
-        if config['eval_type'] == EvaluatorType.RANKING and config['sigmoid']:
-            self.LABEL = config['LABEL_FIELD']
-            self.actfun = nn.Sigmoid()
-            self.loss = nn.BCELoss()
-        else:
-            self.LABEL = config['RATING_FIELD']
-            self.actfun = nn.LeakyReLU()
-            self.loss = nn.MSELoss()
 
         # load parameters info
         self.mf_embedding_size = config['mf_embedding_size']

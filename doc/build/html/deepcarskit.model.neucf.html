@@ -177,13 +177,15 @@
 <span id="deepcarskit-model-neucf"></span><h1>deepcarskit.model.neucf<a class="headerlink" href="#module-deepcarskit.model.neucf.neucmfi" title="Permalink to this headline">¶</a></h1>
 <section id="neucmfi">
 <h2>NeuCMFi<a class="headerlink" href="#neucmfi" title="Permalink to this headline">¶</a></h2>
-<p>using context variables as individual dimensions in the model</p>
+<p class="rubric">References</p>
+<p>pending</p>
+<p class="rubric">Notes</p>
+<p>1). NeuCMFi has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.</p>
+<p>2). NeuCMFi creates embedding for each individual context conditions.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfi.NeuCMFi">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.model.neucf.neucmfi.</span></span><span class="sig-name descname"><span class="pre">NeuCMFi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfi.NeuCMFi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="deepcarskit.model.html#deepcarskit.model.context_recommender.ContextRecommender" title="deepcarskit.model.context_recommender.ContextRecommender"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.model.context_recommender.ContextRecommender</span></code></a></p>
-<p>NeuCMF fuses ‘contexts’ into the MLP tower, together with MF tower
-The version i =&gt; create embedding for each individual context dimension</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfi.NeuCMFi.calculate_loss">
 <span class="sig-name descname"><span class="pre">calculate_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfi.NeuCMFi.calculate_loss" title="Permalink to this definition">¶</a></dt>
@@ -249,17 +251,15 @@ registered hooks while the latter silently ignores them.</p>
 </section>
 <span class="target" id="module-deepcarskit.model.neucf.neucmfw"></span><section id="neucmfw">
 <h2>NeuCMFw<a class="headerlink" href="#neucmfw" title="Permalink to this headline">¶</a></h2>
-<p>using contexts as a whole/a single dimension</p>
+<p class="rubric">References</p>
+<p>Unger, M., Tuzhilin, A., &amp; Livne, A. (2020). Context-aware recommendations based on deep learning frameworks. ACM Transactions on Management Information Systems (TMIS), 11(2), 1-15.</p>
+<p class="rubric">Notes</p>
+<p>1). NeuCMFw has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.</p>
+<p>2). NeuCMFw utilizes context situation as a whole/a single dimension to be embedded</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfw.NeuCMFw">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.model.neucf.neucmfw.</span></span><span class="sig-name descname"><span class="pre">NeuCMFw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfw.NeuCMFw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="deepcarskit.model.html#deepcarskit.model.context_recommender.ContextRecommender" title="deepcarskit.model.context_recommender.ContextRecommender"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.model.context_recommender.ContextRecommender</span></code></a></p>
-<p>NeuCMF fuses ‘contexts’ into the MLP tower, together with MF tower
-The version i =&gt; create embedding for the whole context situation</p>
-<p>Note:</p>
-<blockquote>
-<div><p>Our implementation only contains a rough pretraining function.</p>
-</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfw.NeuCMFw.calculate_loss">
 <span class="sig-name descname"><span class="pre">calculate_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfw.NeuCMFw.calculate_loss" title="Permalink to this definition">¶</a></dt>

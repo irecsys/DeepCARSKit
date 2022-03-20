@@ -17,11 +17,13 @@
 r"""
 DeepFM
 ################################################
-Reference:
-    Huifeng Guo et al. "DeepFM: A Factorization-Machine based Neural Network for CTR Prediction." in IJCAI 2017.
+References
+-----
+Huifeng Guo et al. "DeepFM: A Factorization-Machine based Neural Network for CTR Prediction." in IJCAI 2017.
 
-Notes:
-    context variables are treated as individual dimensions
+Notes
+-----
+context variables are treated as individual dimensions
 """
 
 import torch.nn as nn
@@ -51,15 +53,6 @@ class DeepFM(ContextRecommender):
         size_list = [self.embedding_size * self.num_feature_field] + self.mlp_hidden_size
         self.mlp_layers = MLPLayers(size_list, self.dropout_prob)
         self.deep_predict_layer = nn.Linear(self.mlp_hidden_size[-1], 1)  # Linear product to the final score
-
-        if self.config['eval_type'] == EvaluatorType.RANKING:
-            self.actfun = nn.Sigmoid()
-            self.loss = nn.BCELoss()
-            self.LABEL = self.config['LABEL_FIELD']
-        else:
-            self.actfun = nn.LeakyReLU()
-            self.loss = nn.MSELoss()
-            self.LABEL = self.config['RATING_FIELD']
 
         # parameters initialization
         self.apply(self._init_weights)
