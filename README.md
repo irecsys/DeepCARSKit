@@ -16,7 +16,8 @@ DeepCARSKit is *a Deep Learning Based Context-Aware Recommendation Library* whic
 
 
 ## Feature
-+ **Implemented Deep Context-Aware Recommendation Models.** We support the CARS models based on FM and NeuMF. More algorithms will be added.
++ **Implemented Deep Context-Aware Recommendation Models.** Currently, we support the CARS models built based on factorization machines (FM) and 
+Neural Collaborative Filtering (NeuCF and NeuMF). More algorithms will be added.
 
 + **Multiple Data Splits & Evaluation Options.** We provide evaluations based on both hold-out and N-fold cross validations.
 
@@ -35,21 +36,8 @@ You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https
 
 We also suggest you to refer to [RecBole API](https://recbole.io/docs/).
 
+A user guide with more and more details is on the way...
 
-## Data Sets & Preparation
-A list of available data sets for research on context-aware recommender systems can be found [here](https://github.com/irecsys/CARSKit/tree/master/context-aware_data_sets).
-We provide two data sets (i.e., DePaulMovie and TripAdvisor) in the library. You can refer to its data format, such as depaulmovie.inter.
-
-More specifically, you need to prepare a data set looks like this: (use 'float' and 'token' to indicate numerical and nominal variables)
-
-+ user_id:token
-+ item_id:token
-+ rating:float
-+ context variable 1:token
-+ context variable 2:token
-+ context variable N:token
-+ contexts:token => a concatenation of context conditions
-+ uc_id:token => a concatenation of user_id and contexts
 
 ## Installation
 DeepCARSKit works with the following operating systems:
@@ -77,9 +65,26 @@ python run.py
 
 This script will run the NeuCMFi model on the DePaulMovie dataset.
 
+### Data Sets & Preparation
+A list of available data sets for research on context-aware recommender systems can be found [here](https://github.com/irecsys/CARSKit/tree/master/context-aware_data_sets).
+We provide two data sets (i.e., DePaulMovie and TripAdvisor) in the library. You can refer to its data format, such as depaulmovie.inter.
+
+More specifically, you need to prepare a data set looks like this: (use 'float' and 'token' to indicate numerical and nominal variables)
+
++ user_id:token
++ item_id:token
++ rating:float
++ context variable 1:token
++ context variable 2:token
++ context variable N:token
++ contexts:token => a concatenation of context conditions
++ uc_id:token => a concatenation of user_id and contexts
+
 
 ### Hyperparameter tuning 
 You can tune up the parameters from the configuration file, config.yaml
+
+A user guide with more and more details is on the way...
 
 
 ## Major Releases
