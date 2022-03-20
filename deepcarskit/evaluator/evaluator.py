@@ -1,6 +1,6 @@
 # @Time   : 2021/12
 # @Author : Yong Zheng
-# @Notes  : added F1 metrics, if precision and recall defined
+# @Notes  : added F1 metrics, if precision and recall defined in user requests
 
 """
 deepcarskit.evaluator.evaluator
