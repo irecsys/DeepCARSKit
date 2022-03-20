@@ -1,1 +1,1 @@
-log files will be saved in this folder
+log_tensorboard files will be saved in this folder
