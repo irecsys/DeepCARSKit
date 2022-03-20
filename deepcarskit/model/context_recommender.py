@@ -36,6 +36,8 @@ class ContextRecommender(AbstractRecommender):
         self.ITEM_ID = config['ITEM_ID_FIELD']
         self.CONTEXT_SITUATION_ID = config['CONTEXT_SITUATION_FIELD']
 
+        self.actfun = nn.LeakyReLU()
+        self.loss = nn.MSELoss()
         if config['ranking']:
             self.LABEL = config['LABEL_FIELD']
             if config['sigmoid']:
@@ -43,8 +45,6 @@ class ContextRecommender(AbstractRecommender):
                 self.loss = nn.BCELoss()
         else:
             self.LABEL = config['RATING_FIELD']
-            self.actfun = nn.LeakyReLU()
-            self.loss = nn.MSELoss()
 
         self.CONTEXTS = []
         for i in range(2, len(self.field_names)):
