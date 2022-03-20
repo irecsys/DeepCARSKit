@@ -6,4 +6,6 @@ events.out.*
 deepcarskit\data\dataset\__pycache__\
 deepcarskit\__pycache__\
 .idea\
-
+saved\
+log\
+log_tensorboard\
