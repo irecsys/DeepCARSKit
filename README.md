@@ -66,7 +66,7 @@ This script will run the NeuCMFi model on the DePaulMovie dataset.
 
 ### Data Sets & Preparation
 A list of available data sets for research on context-aware recommender systems can be found [here](https://github.com/irecsys/CARSKit/tree/master/context-aware_data_sets).
-We provide two data sets (i.e., DePaulMovie and TripAdvisor) in the library. You can refer to its data format, such as depaulmovie.inter.
+We provide two data sets (i.e., DePaulMovie and TripAdvisor) in the library. You can refer to its data format, such as [depaulmovie.inter](https://github.com/irecsys/DeepCARSKit/blob/main/dataset/depaulmovie/depaulmovie.inter).
 
 More specifically, you need to prepare a data set looks like this: (use 'float' and 'token' to indicate numerical and nominal variables)
 
