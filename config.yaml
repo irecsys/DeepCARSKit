@@ -62,10 +62,10 @@ embedding_size: 64
 
 ############### Evaluation setting ###############
 eval_args:
-  # split: {'RS': [0.8, 0.2]}
-  split: {'CV': 5}
+  # split: {'RS': [0.8, 0.2]} # hold-out evaluation
+  split: {'CV': 5} # N-fold cross validation
   group_by: user
-  mode: labeled
+  mode: labeled # do not change it, DeepCARSKit only support this mode
   order: RO
 
 # indicate the task is ranking or rating prediction
