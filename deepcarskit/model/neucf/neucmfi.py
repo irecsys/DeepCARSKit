@@ -6,7 +6,7 @@ NeuCMFi
 ################################################
 References
 -----
-pending
+Yong Zheng. "DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library", 2022
 
 Notes
 -----

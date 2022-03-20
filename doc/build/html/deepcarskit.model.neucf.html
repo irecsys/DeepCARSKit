@@ -98,7 +98,9 @@
 <li class="toctree-l2"><a class="reference internal" href="deepcarskit.model.fms.html">deepcarskit.model.fms</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">deepcarskit.model.neucf</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#neucmfi">NeuCMFi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neucmfii">NeuCMFii</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#neucmfw">NeuCMFw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neucmfww">NeuCMFww</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="deepcarskit.model.html#deepcarskit-model-layers">deepcarskit.model.layers</a></li>
@@ -178,7 +180,7 @@
 <section id="neucmfi">
 <h2>NeuCMFi<a class="headerlink" href="#neucmfi" title="Permalink to this headline">¶</a></h2>
 <p class="rubric">References</p>
-<p>pending</p>
+<p>Yong Zheng. “DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library”, 2022</p>
 <p class="rubric">Notes</p>
 <p>1). NeuCMFi has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.</p>
 <p>2). NeuCMFi creates embedding for each individual context conditions.</p>
@@ -244,6 +246,80 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfi.NeuCMFi.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfi.NeuCMFi.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<span class="target" id="module-deepcarskit.model.neucf.neucmfii"></span><section id="neucmfii">
+<h2>NeuCMFii<a class="headerlink" href="#neucmfii" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">References</p>
+<p>Yong Zheng. “DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library”, 2022</p>
+<p class="rubric">Notes</p>
+<p>1). NeuCMFii has 4 towers: MLP tower with contexts, MF tower with UI, MF with UC, MF with IC</p>
+<p>2). ii =&gt; we create embeddings for each individual context conditions when we fuse contexts into the MLP and MF towers</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.model.neucf.neucmfii.</span></span><span class="sig-name descname"><span class="pre">NeuCMFii</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="deepcarskit.model.html#deepcarskit.model.context_recommender.ContextRecommender" title="deepcarskit.model.context_recommender.ContextRecommender"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.model.context_recommender.ContextRecommender</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.calculate_loss">
+<span class="sig-name descname"><span class="pre">calculate_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.calculate_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the training loss for a batch data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>interaction (Interaction): Interaction class of the batch.</p>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: Training loss, shape: []</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.dump_parameters">
+<span class="sig-name descname"><span class="pre">dump_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.dump_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple implementation of dumping model parameters for pretrain.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_situation_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.input_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.load_pretrain">
+<span class="sig-name descname"><span class="pre">load_pretrain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.load_pretrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple implementation of loading pretrained parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the scores between users and items.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>interaction (Interaction): Interaction class of the batch.</p>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: Predicted scores for given users and items, shape: [batch_size]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfii.NeuCMFii.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfii.NeuCMFii.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -318,6 +394,80 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfw.NeuCMFw.training">
 <span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfw.NeuCMFw.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<span class="target" id="module-deepcarskit.model.neucf.neucmfww"></span><section id="neucmfww">
+<h2>NeuCMFww<a class="headerlink" href="#neucmfww" title="Permalink to this headline">¶</a></h2>
+<p class="rubric">References</p>
+<p>Yong Zheng. “DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library”, 2022</p>
+<p class="rubric">Notes</p>
+<p>1). NeuCMFww has 4 towers: MLP tower with contexts, MF tower with UI, MF with UC, MF with IC</p>
+<p>2). ww =&gt; we consider context situation as a whole/single dimension and create embedding for it, when we fuse contexts into the MLP and MF towers</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.model.neucf.neucmfww.</span></span><span class="sig-name descname"><span class="pre">NeuCMFww</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="deepcarskit.model.html#deepcarskit.model.context_recommender.ContextRecommender" title="deepcarskit.model.context_recommender.ContextRecommender"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.model.context_recommender.ContextRecommender</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.calculate_loss">
+<span class="sig-name descname"><span class="pre">calculate_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.calculate_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the training loss for a batch data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>interaction (Interaction): Interaction class of the batch.</p>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: Training loss, shape: []</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.dump_parameters">
+<span class="sig-name descname"><span class="pre">dump_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.dump_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple implementation of dumping model parameters for pretrain.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context_situation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.input_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.load_pretrain">
+<span class="sig-name descname"><span class="pre">load_pretrain</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.load_pretrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple implementation of loading pretrained parameters.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the scores between users and items.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>interaction (Interaction): Interaction class of the batch.</p>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: Predicted scores for given users and items, shape: [batch_size]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.model.neucf.neucmfww.NeuCMFww.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#deepcarskit.model.neucf.neucmfww.NeuCMFww.training" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
