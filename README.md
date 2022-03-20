@@ -9,7 +9,7 @@
 + **[CARSKit](https://github.com/irecsys/CARSKit)** was released in 2015, and it was the first open-source library for 
 context-aware recommendations. There were no more significant updates in CARSKit since 2019. It was a library built based on Java and [Librec](https://github.com/guoguibing/librec) v1.3. 
 There is a version in Python, [CARSKit-API](https://github.com/WagnoLeaoSergio/CARSKit_API), which is a python wrapper of CARSKit.
-+ Recommender systems based on deep learning have been well developed in recent years. The context-aware 
++ Recommender systems based on deep learning have been well-developed in recent years. The context-aware 
 recommendation models based on traditional collaborative filtering (e.g., KNN-based CF, matrix factorization) turned out to 
 be out-dated. Therefore, we develop and release [DeepCARSKit](https://github.com/irecsys/DeepCARSKit) which was built upon the [RecBole](https://recbole.io/) v1.0.0 recommendation library.
 DeepCARSKit is *a Deep Learning Based Context-Aware Recommendation Library* which can be run with correct setting based on Python and [PyTorch](https://pytorch.org/).
@@ -106,6 +106,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 We welcome collaborations and contributors to the DeepCARSKit. Your names will be listed here.
+
+## Sponsors
+The current project was supported by Google Cloud Platform. We are looking for more sponsors to support the development and distribution of this libraray.
+If you are interested in sponsorship, please let me know.
 
 ## License
 [MIT License](./LICENSE)
