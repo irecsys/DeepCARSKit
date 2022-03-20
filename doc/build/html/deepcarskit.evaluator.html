@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>deepcarskit.evaluator package &mdash; DeepCARSKit 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DeepCARSKit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+    
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">deepcarskit.evaluator package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-deepcarskit.evaluator.base_metric">deepcarskit.evaluator.base_metric module</a><ul>
+<li><a class="reference internal" href="#deepcarskit-evaluator-abstract-metric">deepcarskit.evaluator.abstract_metric</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-deepcarskit.evaluator.collector">deepcarskit.evaluator.collector module</a><ul>
+<li><a class="reference internal" href="#recbole-evaluator-collector">recbole.evaluator.collector</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-deepcarskit.evaluator.evaluator">deepcarskit.evaluator.evaluator module</a><ul>
+<li><a class="reference internal" href="#deepcarskit-evaluator-evaluator">deepcarskit.evaluator.evaluator</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-deepcarskit.evaluator">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+    <a href="py-modindex.html">Module Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DeepCARSKit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>deepcarskit.evaluator package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/deepcarskit.evaluator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <section id="deepcarskit-evaluator-package">
+<h1>deepcarskit.evaluator package<a class="headerlink" href="#deepcarskit-evaluator-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-deepcarskit.evaluator.base_metric">
+<span id="deepcarskit-evaluator-base-metric-module"></span><h2>deepcarskit.evaluator.base_metric module<a class="headerlink" href="#module-deepcarskit.evaluator.base_metric" title="Permalink to this headline">¶</a></h2>
+<section id="deepcarskit-evaluator-abstract-metric">
+<h3>deepcarskit.evaluator.abstract_metric<a class="headerlink" href="#deepcarskit-evaluator-abstract-metric" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.AbstractMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.base_metric.</span></span><span class="sig-name descname"><span class="pre">AbstractMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.AbstractMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt><a class="reference internal" href="#deepcarskit.evaluator.base_metric.AbstractMetric" title="deepcarskit.evaluator.base_metric.AbstractMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractMetric</span></code></a> is the base object of all metrics. If you want to</dt><dd><p>implement a metric, you should inherit this class.</p>
+</dd>
+<dt>Args:</dt><dd><p>config (Config): the config of evaluator.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.AbstractMetric.calculate_metric">
+<span class="sig-name descname"><span class="pre">calculate_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.AbstractMetric.calculate_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the dictionary of a metric.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dataobject(DataStruct): it contains all the information needed to calculate metrics.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: such as <code class="docutils literal notranslate"><span class="pre">{'metric&#64;10':</span> <span class="pre">3153,</span> <span class="pre">'metric&#64;20':</span> <span class="pre">0.3824}</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.AbstractMetric.smaller">
+<span class="sig-name descname"><span class="pre">smaller</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#deepcarskit.evaluator.base_metric.AbstractMetric.smaller" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.base_metric.</span></span><span class="sig-name descname"><span class="pre">LossMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#deepcarskit.evaluator.base_metric.AbstractMetric" title="deepcarskit.evaluator.base_metric.AbstractMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.evaluator.base_metric.AbstractMetric</span></code></a></p>
+<p><a class="reference internal" href="#deepcarskit.evaluator.base_metric.LossMetric" title="deepcarskit.evaluator.base_metric.LossMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">LossMetric</span></code></a> is a base object of loss based metrics and AUC. If you want to
+implement an loss based metric, you can inherit this class.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>config (Config): The config of evaluator.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric.metric_info">
+<span class="sig-name descname"><span class="pre">metric_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trues</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric.metric_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the value of the metric.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>preds (numpy.ndarray): the scores predicted by model, a one-dimensional vector.
+trues (numpy.ndarray): the label of items, which has the same shape as <code class="docutils literal notranslate"><span class="pre">preds</span></code>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>float: The value of the metric.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric.metric_need">
+<span class="sig-name descname"><span class="pre">metric_need</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['rec.score',</span> <span class="pre">'data.label']</span></em><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric.metric_need" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric.metric_type">
+<span class="sig-name descname"><span class="pre">metric_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric.metric_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric.output_metric">
+<span class="sig-name descname"><span class="pre">output_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric.output_metric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.LossMetric.used_info">
+<span class="sig-name descname"><span class="pre">used_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.LossMetric.used_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get scores that model predicted and the ground truth.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.base_metric.</span></span><span class="sig-name descname"><span class="pre">TopkMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#deepcarskit.evaluator.base_metric.AbstractMetric" title="deepcarskit.evaluator.base_metric.AbstractMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">deepcarskit.evaluator.base_metric.AbstractMetric</span></code></a></p>
+<p><a class="reference internal" href="#deepcarskit.evaluator.base_metric.TopkMetric" title="deepcarskit.evaluator.base_metric.TopkMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">TopkMetric</span></code></a> is a base object of top-k metrics. If you want to
+implement an top-k metric, you can inherit this class.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>config (Config): The config of evaluator.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric.metric_info">
+<span class="sig-name descname"><span class="pre">metric_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_len</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric.metric_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the value of the metric.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>pos_index(numpy.ndarray): a bool matrix, shape of <code class="docutils literal notranslate"><span class="pre">n_users</span> <span class="pre">*</span> <span class="pre">max(topk)</span></code>. The item with the (j+1)-th             highest score of i-th user is positive if <code class="docutils literal notranslate"><span class="pre">pos_index[i][j]</span> <span class="pre">==</span> <span class="pre">True</span></code> and negative otherwise.
+pos_len(numpy.ndarray): a vector representing the number of positive items per user, shape of <code class="docutils literal notranslate"><span class="pre">(n_users,)</span></code>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>numpy.ndarray: metrics for each user, including values from <cite>metric&#64;1</cite> to <cite>metric&#64;max(self.topk)</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric.metric_need">
+<span class="sig-name descname"><span class="pre">metric_need</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['uc',</span> <span class="pre">'rec.topk']</span></em><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric.metric_need" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric.metric_type">
+<span class="sig-name descname"><span class="pre">metric_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric.metric_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric.topk_result">
+<span class="sig-name descname"><span class="pre">topk_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric.topk_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Match the metric value to the <cite>k</cite> and put them in <cite>dictionary</cite> form.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>metric(str): the name of calculated metric.
+value(numpy.ndarray): metrics for each user, including values from <cite>metric&#64;1</cite> to <cite>metric&#64;max(self.topk)</cite>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: metric values required in the configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.base_metric.TopkMetric.used_info">
+<span class="sig-name descname"><span class="pre">used_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataobject</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.base_metric.TopkMetric.used_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the bool matrix indicating whether the corresponding item is positive
+and number of positive items for each user.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="module-deepcarskit.evaluator.collector">
+<span id="deepcarskit-evaluator-collector-module"></span><h2>deepcarskit.evaluator.collector module<a class="headerlink" href="#module-deepcarskit.evaluator.collector" title="Permalink to this headline">¶</a></h2>
+<section id="recbole-evaluator-collector">
+<h3>recbole.evaluator.collector<a class="headerlink" href="#recbole-evaluator-collector" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.collector.Collector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.collector.</span></span><span class="sig-name descname"><span class="pre">Collector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.collector.Collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">recbole.evaluator.collector.Collector</span></code></p>
+<p>The collector is used to collect the resource for evaluator.
+As the evaluation metrics are various, the needed resource not only contain the recommended result
+but also other resource from data and model. They all can be collected by the collector during the training
+and evaluation process.</p>
+<p>This class is only used in Trainer.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.collector.Collector.eval_batch_collect">
+<span class="sig-name descname"><span class="pre">eval_batch_collect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interaction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive_u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positive_i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.collector.Collector.eval_batch_collect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect the evaluation resource from batched eval data and batched model output.
+Args:</p>
+<blockquote>
+<div><p>scores_tensor (Torch.Tensor): the output tensor of model with the shape of <cite>(N, )</cite>
+interaction(Interaction): batched eval data.
+positive_u(Torch.Tensor): the row index of positive items for each user.
+positive_i(Torch.Tensor): the positive item id for each user.</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="module-deepcarskit.evaluator.evaluator">
+<span id="deepcarskit-evaluator-evaluator-module"></span><h2>deepcarskit.evaluator.evaluator module<a class="headerlink" href="#module-deepcarskit.evaluator.evaluator" title="Permalink to this headline">¶</a></h2>
+<section id="deepcarskit-evaluator-evaluator">
+<h3>deepcarskit.evaluator.evaluator<a class="headerlink" href="#deepcarskit-evaluator-evaluator" title="Permalink to this headline">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.evaluator.Evaluator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.evaluator.evaluator.</span></span><span class="sig-name descname"><span class="pre">Evaluator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.evaluator.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Evaluator is used to check parameter correctness, and summarize the results of all metrics.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.evaluator.evaluator.Evaluator.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataobject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">recbole.evaluator.collector.DataStruct</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.evaluator.evaluator.Evaluator.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate all the metrics. It is called at the end of each epoch</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>dataobject (DataStruct): It contains all the information needed for metrics.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: such as <code class="docutils literal notranslate"><span class="pre">{'hit&#64;20':</span> <span class="pre">0.3824,</span> <span class="pre">'recall&#64;20':</span> <span class="pre">0.0527,</span> <span class="pre">'hit&#64;10':</span> <span class="pre">0.3153,</span> <span class="pre">'recall&#64;10':</span> <span class="pre">0.0329,</span> <span class="pre">'gauc':</span> <span class="pre">0.9236}</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="module-deepcarskit.evaluator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-deepcarskit.evaluator" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Yong Zheng
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
