@@ -132,7 +132,6 @@ def run_deepcarskit(model=None, dataset=None, config_file_list=None, config_dict
         logger.removeHandler(log_handler)
         logger_name = log_filepath[:-4] + "_" + config['valid_metric'] + " = " + str(best_valid_score) + ".log"
         shutil.move(log_filepath, logger_name)
-
     else:
         if config['save_dataloaders']:
             save_split_dataloaders(config, dataloaders=(train_data, valid_data))
