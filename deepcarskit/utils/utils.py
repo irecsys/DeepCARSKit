@@ -69,4 +69,4 @@ def get_trainer(model_type, model_name):
         elif model_type == ModelType.TRADITIONAL:
             return getattr(importlib.import_module('recbole.trainer'), 'TraditionalTrainer')
         else:
-            return getattr(importlib.import_module('deepcarskit.trainer'), 'Trainer')
+            return getattr(importlib.import_module('deepcarskit.trainer'), 'CARSTrainer')

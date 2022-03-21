@@ -12,7 +12,7 @@ from recbole.evaluator import Collector, DataStruct
 import torch
 
 
-class Collector(Collector):
+class CARSCollector(Collector):
     """The collector is used to collect the resource for evaluator.
         As the evaluation metrics are various, the needed resource not only contain the recommended result
         but also other resource from data and model. They all can be collected by the collector during the training

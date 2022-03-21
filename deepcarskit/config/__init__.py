@@ -1,1 +1,1 @@
-from deepcarskit.config.configurator import Config
+from deepcarskit.config.configurator import CARSConfig

@@ -24,12 +24,11 @@ import pprint
 
 # from past.builtins import raw_input
 
-from deepcarskit.config import Config
+from deepcarskit.config import CARSConfig
 from deepcarskit.data import create_dataset, data_preparation, save_split_dataloaders, load_split_dataloaders
 from deepcarskit.utils.utils import get_model, get_trainer
 from deepcarskit.utils import init_logger, init_seed, set_color
 from multiprocessing.dummy import Pool as ThreadPool
-from deepcarskit.trainer.trainer import Trainer
 
 
 def eval_folds(args_tuple):
@@ -46,8 +45,12 @@ def eval_folds(args_tuple):
     model = get_model(config['model'])(config, train_data_fold.dataset).to(config['device'])
 
     # trainer loading and initialization
-    trainer1 = get_trainer(config['MODEL_TYPE'], config['model'])
-    trainer = Trainer(config, model)
+    trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
+    name = trainer.saved_model_file
+    ind = name.rindex('.')
+    lname = list(name)
+    lname.insert(ind, '_f'+str(fold))
+    trainer.saved_model_file = ''.join(lname)
 
     # model training
     best_valid_score_fold, best_valid_result_fold = trainer.fit(
@@ -71,7 +74,7 @@ def run_deepcarskit(model=None, dataset=None, config_file_list=None, config_dict
         saved (bool, optional): Whether to save the model. Defaults to ``True``.
     """
     # configurations initialization
-    config = Config(model=model, dataset=dataset, config_file_list=config_file_list, config_dict=config_dict)
+    config = CARSConfig(model=model, dataset=dataset, config_file_list=config_file_list, config_dict=config_dict)
     init_seed(config['seed'], config['reproducibility'])
 
     # logger initialization

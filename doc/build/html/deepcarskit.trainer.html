@@ -170,8 +170,8 @@
 <section id="recbole-trainer-trainer">
 <h2>recbole.trainer.trainer<a class="headerlink" href="#recbole-trainer-trainer" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="deepcarskit.trainer.trainer.Trainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.trainer.</span></span><span class="sig-name descname"><span class="pre">Trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.trainer.Trainer" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="deepcarskit.trainer.trainer.CARSTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.trainer.</span></span><span class="sig-name descname"><span class="pre">CARSTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.trainer.CARSTrainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#deepcarskit.trainer.Trainer" title="recbole.trainer.trainer.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">recbole.trainer.trainer.Trainer</span></code></a></p>
 <p>The basic Trainer for basic training and evaluation strategies in recommender systems. This class defines common
 functions for training and evaluation processes of most recommender system models, including fit(), evaluate(),
@@ -183,8 +183,8 @@ pre-training and so on.</p>
 for controlling training and evaluation, such as <cite>learning_rate</cite>, <cite>epochs</cite>, <cite>eval_step</cite> and so on.
 <cite>model</cite> is the instantiated object of a Model Class.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="deepcarskit.trainer.trainer.Trainer.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eval_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_best_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.trainer.Trainer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="deepcarskit.trainer.trainer.CARSTrainer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eval_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_best_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.trainer.CARSTrainer.evaluate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate the model based on the eval data.</p>
 <dl>
 <dt>Args:</dt><dd><p>eval_data (DataLoader): the eval data
@@ -207,6 +207,42 @@ load_best_model (bool, optional): whether load the best model in the training pr
 
 </section>
 <span class="target" id="module-deepcarskit.trainer"></span><dl class="py class">
+<dt class="sig sig-object py" id="deepcarskit.trainer.CARSTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.</span></span><span class="sig-name descname"><span class="pre">CARSTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.CARSTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#deepcarskit.trainer.Trainer" title="recbole.trainer.trainer.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">recbole.trainer.trainer.Trainer</span></code></a></p>
+<p>The basic Trainer for basic training and evaluation strategies in recommender systems. This class defines common
+functions for training and evaluation processes of most recommender system models, including fit(), evaluate(),
+resume_checkpoint() and some other features helpful for model training and evaluation.</p>
+<p>Generally speaking, this class can serve most recommender system models, If the training process of the model is to
+simply optimize a single loss without involving any complex training strategies, such as adversarial learning,
+pre-training and so on.</p>
+<p>Initializing the Trainer needs two parameters: <cite>config</cite> and <cite>model</cite>. <cite>config</cite> records the parameters information
+for controlling training and evaluation, such as <cite>learning_rate</cite>, <cite>epochs</cite>, <cite>eval_step</cite> and so on.
+<cite>model</cite> is the instantiated object of a Model Class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="deepcarskit.trainer.CARSTrainer.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eval_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_best_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.CARSTrainer.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model based on the eval data.</p>
+<dl>
+<dt>Args:</dt><dd><p>eval_data (DataLoader): the eval data
+load_best_model (bool, optional): whether load the best model in the training process, default: True.</p>
+<blockquote>
+<div><p>It should be set True, if users want to test the model after training.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>model_file (str, optional): the saved model file, default: None. If users want to test the previously</dt><dd><p>trained model file, they can set this parameter.</p>
+</dd>
+</dl>
+<p>show_progress (bool): Show the progress of evaluate epoch. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: eval result, key is the eval metric and value in the corresponding metric value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="deepcarskit.trainer.KGATTrainer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">deepcarskit.trainer.</span></span><span class="sig-name descname"><span class="pre">KGATTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deepcarskit.trainer.KGATTrainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#deepcarskit.trainer.Trainer" title="recbole.trainer.trainer.Trainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">recbole.trainer.trainer.Trainer</span></code></a></p>

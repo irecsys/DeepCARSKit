@@ -13,14 +13,13 @@ import torch
 
 from tqdm import tqdm
 
-
 from deepcarskit.data import LabledDataSortEvalDataLoader
-from deepcarskit.evaluator import Collector
+from deepcarskit.evaluator import CARSCollector
 from recbole.trainer import Trainer
 from recbole.data import FullSortEvalDataLoader
 from recbole.utils import EvaluatorType, set_color, get_gpu_usage
 
-class Trainer(Trainer):
+class CARSTrainer(Trainer):
     r"""The basic Trainer for basic training and evaluation strategies in recommender systems. This class defines common
     functions for training and evaluation processes of most recommender system models, including fit(), evaluate(),
     resume_checkpoint() and some other features helpful for model training and evaluation.
@@ -36,8 +35,8 @@ class Trainer(Trainer):
     """
 
     def __init__(self, config, model):
-        super(Trainer, self).__init__(config, model)
-        self.eval_collector = Collector(config)
+        super(CARSTrainer, self).__init__(config, model)
+        self.eval_collector = CARSCollector(config)
 
     def _labled_data_sort_batch_eval(self, batched_data):
         interaction, history_index, positive_u, positive_i = batched_data

@@ -11,10 +11,10 @@ from deepcarskit.utils.utils import get_model
 from recbole.config import Config
 
 
-class Config(Config):
+class CARSConfig(Config):
 
     def __init__(self, model=None, dataset=None, config_file_list=None, config_dict=None):
-        super(Config, self).__init__(model, dataset, config_file_list, config_dict)
+        super(CARSConfig, self).__init__(model, dataset, config_file_list, config_dict)
 
     def _get_model_and_dataset(self, model, dataset):
 
