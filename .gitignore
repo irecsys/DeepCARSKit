@@ -3,6 +3,7 @@
 *.pth
 *.pyc
 *.zip
+*.ttf
 events.out.*
 deepcarskit\data\dataset\__pycache__\
 deepcarskit\__pycache__\
