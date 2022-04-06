@@ -6,7 +6,7 @@ import argparse
 import time
 import torch
 import multiprocessing as mcpu
-from deepcarskit.quick_start import run_deepcarskit
+from deepcarskit.quick_start import run
 from logging import getLogger
 
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
 
     config_list = args.config_files.strip().split(' ') if args.config_files else None
-    run_deepcarskit(config_file_list=config_list)
+    run(config_file_list=config_list)
     t1 = time.time()
     total = t1 - t0
     logger.info('time cost: '+ f': {total}s')

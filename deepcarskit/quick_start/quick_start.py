@@ -61,7 +61,7 @@ def eval_folds(args_tuple):
     return best_valid_score_fold, best_valid_result_fold
 
 
-def run_deepcarskit(model=None, dataset=None, config_file_list=None, config_dict=None, saved=True):
+def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved=True):
     r""" A fast running api, which includes the complete process of
     training and testing a model on a specified dataset
 
