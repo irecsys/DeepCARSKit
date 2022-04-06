@@ -10,7 +10,7 @@ events.out.*
 saved\
 log\
 log_tensorboard\
-doc\
+doc/
 deepcarskit\data\dataset\__pycache__\
 deepcarskit\__pycache__\
 .idea\
