@@ -11,7 +11,7 @@ save_dataloaders: False
 seed: 2022
 dataset: depaulmovie
 
-model: NeuCMFw
+model: NeuCMFi0
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 RATING_FIELD: rating
@@ -46,7 +46,7 @@ clip_grad_norm: ~
 # clip_grad_norm:  {'max_norm': 5, 'norm_type': 2}
 weight_decay: 0.0
 
-# NeuMF models
+# NeuCF models
 mf_embedding_size: 64
 mlp_embedding_size: 64
 mlp_hidden_size: [128,64,32]
@@ -57,8 +57,11 @@ dropout_prob: 0.3
 mf_train: True
 mlp_train: True
 
-# Deep FM
+# FM models
 embedding_size: 64
+#mlp_hidden_size: [128,64,32]
+#learning_rate: 0.01
+#dropout_prob: 0.3
 
 ############### Evaluation setting ###############
 eval_args:

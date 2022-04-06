@@ -69,28 +69,6 @@ class NeuCMFww(ContextRecommender):
         else:
             self.apply(self._init_weights)
 
-    def load_pretrain(self):
-        r"""A simple implementation of loading pretrained parameters.
-
-        """
-        mf = torch.load(self.mf_pretrain_path)
-        mlp = torch.load(self.mlp_pretrain_path)
-        self.user_mf_embedding.weight.data.copy_(mf.user_mf_embedding.weight)
-        self.item_mf_embedding.weight.data.copy_(mf.item_mf_embedding.weight)
-        self.user_mlp_embedding.weight.data.copy_(mlp.user_mlp_embedding.weight)
-        self.item_mlp_embedding.weight.data.copy_(mlp.item_mlp_embedding.weight)
-
-        for (m1, m2) in zip(self.mlp_layers.mlp_layers, mlp.mlp_layers.mlp_layers):
-            if isinstance(m1, nn.Linear) and isinstance(m2, nn.Linear):
-                m1.weight.data.copy_(m2.weight)
-                m1.bias.data.copy_(m2.bias)
-
-        predict_weight = torch.cat([mf.predict_layer.weight, mlp.predict_layer.weight], dim=1)
-        predict_bias = mf.predict_layer.bias + mlp.predict_layer.bias
-
-        self.predict_layer.weight.data.copy_(0.5 * predict_weight)
-        self.predict_layer.weight.data.copy_(0.5 * predict_bias)
-
     def _init_weights(self, module):
         if isinstance(module, nn.Embedding):
             normal_(module.weight.data, mean=0.0, std=0.01)

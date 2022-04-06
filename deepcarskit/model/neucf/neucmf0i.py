@@ -2,7 +2,7 @@
 # @Author : Yong Zheng
 
 r"""
-NeuCMFi
+NeuCMF0i
 ################################################
 References
 -----
@@ -10,9 +10,9 @@ Yong Zheng. "DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Lib
 
 Notes
 -----
-1). NeuCMFi has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.
+1). NeuCMF0i has 2 towers (MLP and MF), and it fuses contexts into MLP tower only.
 
-2). NeuCMFi creates embedding for each individual context conditions.
+2). NeuCMF0i creates embedding for each individual context conditions.
 """
 
 import torch
@@ -24,12 +24,12 @@ from recbole.model.layers import MLPLayers
 from recbole.utils import InputType, EvaluatorType
 
 
-class NeuCMFi(ContextRecommender):
+class NeuCMF0i(ContextRecommender):
 
     input_type = InputType.POINTWISE
 
     def __init__(self, config, dataset):
-        super(NeuCMFi, self).__init__(config, dataset)
+        super(NeuCMF0i, self).__init__(config, dataset)
 
         # load parameters info
         self.mf_embedding_size = config['mf_embedding_size']
@@ -66,28 +66,6 @@ class NeuCMFi(ContextRecommender):
             self.load_pretrain()
         else:
             self.apply(self._init_weights)
-
-    def load_pretrain(self):
-        r"""A simple implementation of loading pretrained parameters.
-
-        """
-        mf = torch.load(self.mf_pretrain_path)
-        mlp = torch.load(self.mlp_pretrain_path)
-        self.user_mf_embedding.weight.data.copy_(mf.user_mf_embedding.weight)
-        self.item_mf_embedding.weight.data.copy_(mf.item_mf_embedding.weight)
-        self.user_mlp_embedding.weight.data.copy_(mlp.user_mlp_embedding.weight)
-        self.item_mlp_embedding.weight.data.copy_(mlp.item_mlp_embedding.weight)
-
-        for (m1, m2) in zip(self.mlp_layers.mlp_layers, mlp.mlp_layers.mlp_layers):
-            if isinstance(m1, nn.Linear) and isinstance(m2, nn.Linear):
-                m1.weight.data.copy_(m2.weight)
-                m1.bias.data.copy_(m2.bias)
-
-        predict_weight = torch.cat([mf.predict_layer.weight, mlp.predict_layer.weight], dim=1)
-        predict_bias = mf.predict_layer.bias + mlp.predict_layer.bias
-
-        self.predict_layer.weight.data.copy_(0.5 * predict_weight)
-        self.predict_layer.weight.data.copy_(0.5 * predict_bias)
 
     def _init_weights(self, module):
         if isinstance(module, nn.Embedding):
