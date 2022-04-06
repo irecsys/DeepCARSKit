@@ -4,6 +4,8 @@
 *.pyc
 *.zip
 *.ttf
+*.xml
+*.iml
 events.out.*
 deepcarskit\data\dataset\__pycache__\
 deepcarskit\__pycache__\
