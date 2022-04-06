@@ -7,10 +7,9 @@
 *.xml
 *.iml
 events.out.*
-saved\
-log\
-log_tensorboard\
+saved/
+log/
+log_tensorboard/
 doc/
-deepcarskit\data\dataset\__pycache__\
-deepcarskit\__pycache__\
+**/__pycache__/
 .idea/
