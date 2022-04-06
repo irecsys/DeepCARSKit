@@ -11,7 +11,7 @@ save_dataloaders: False
 seed: 2022
 dataset: depaulmovie
 
-model: NeuCMFi0
+model: NeuCMF0w
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 RATING_FIELD: rating

@@ -18,6 +18,7 @@ from deepcarskit.evaluator import CARSCollector
 from recbole.trainer import Trainer
 from recbole.data import FullSortEvalDataLoader
 from recbole.utils import EvaluatorType, set_color, get_gpu_usage
+from deepcarskit.evaluator import Evaluator
 
 class CARSTrainer(Trainer):
     r"""The basic Trainer for basic training and evaluation strategies in recommender systems. This class defines common
@@ -37,6 +38,7 @@ class CARSTrainer(Trainer):
     def __init__(self, config, model):
         super(CARSTrainer, self).__init__(config, model)
         self.eval_collector = CARSCollector(config)
+        self.evaluator = Evaluator(config)
 
     def _labled_data_sort_batch_eval(self, batched_data):
         interaction, history_index, positive_u, positive_i = batched_data

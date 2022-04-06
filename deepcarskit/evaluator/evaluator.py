@@ -61,7 +61,10 @@ class Evaluator(object):
                         key = 'f1@'+str(k)
                         precision = result_dict[key1]
                         recall = result_dict[key2]
-                        f1 = round(2*precision*recall/(precision + recall), self.config['metric_decimal_place'])
+                        if (precision + recall) == 0:
+                            f1 = 0
+                        else:
+                            f1 = round(2*precision*recall/(precision + recall), self.config['metric_decimal_place'])
                         metric[key] = f1
                     result_dict.update(metric)
         return result_dict

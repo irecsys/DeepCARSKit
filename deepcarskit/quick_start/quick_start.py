@@ -19,7 +19,6 @@ import shutil
 import numpy
 import torch
 import pickle
-import pprint
 
 
 # from past.builtins import raw_input
@@ -57,7 +56,7 @@ def eval_folds(args_tuple):
         train_data_fold, valid_data_fold, saved=True, show_progress=config['show_progress']
     )
     msghead = 'Fold ' + str(fold) + ' completed: '
-    logger.info(set_color(msghead, 'yellow') + f': {pprint.pformat(dict(best_valid_result_fold))}')
+    logger.info(set_color(msghead, 'yellow') + f': {best_valid_result_fold}')
 
     return best_valid_score_fold, best_valid_result_fold
 
@@ -130,7 +129,7 @@ def run_deepcarskit(model=None, dataset=None, config_file_list=None, config_dict
         msghead = 'Data: '+config['dataset']+', Results on '+str(n_folds)+' CV: best valid by '+config['model']
         layers = [str(int) for int in config['mlp_hidden_size']]
         layers = ' '.join(layers)
-        logger.info(set_color(msghead, 'yellow') + f': {pprint.pformat(dict(best_valid_result))}'+', lrate: '+str(config['learning_rate'])+', layers: ['+layers+']')
+        logger.info(set_color(msghead, 'yellow') + f': {best_valid_result}'+', lrate: '+str(config['learning_rate'])+', layers: ['+layers+']')
         log_handler.close()
         logger.removeHandler(log_handler)
         logger_name = log_filepath[:-4] + "_" + config['valid_metric'] + " = " + str(best_valid_score) + ".log"
@@ -155,7 +154,7 @@ def run_deepcarskit(model=None, dataset=None, config_file_list=None, config_dict
         # test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])
 
         msghead = 'Data: '+config['dataset']+', best valid by '+config['model']
-        logger.info(set_color(msghead, 'yellow') + f': {pprint.pformat(dict(best_valid_result))}')
+        logger.info(set_color(msghead, 'yellow') + f': {best_valid_result}')
         # logger.info(set_color('test result', 'yellow') + f': {test_result}')
         log_handler.close()
         logger.removeHandler(log_handler)
@@ -204,7 +203,7 @@ def objective_function(config_dict=None, config_file_list=None, saved=True):
         saved (bool, optional): Whether to save the model. Defaults to ``True``.
     """
 
-    config = Config(config_dict=config_dict, config_file_list=config_file_list)
+    config = CARSConfig(config_dict=config_dict, config_file_list=config_file_list)
     init_seed(config['seed'], config['reproducibility'])
     logging.basicConfig(level=logging.ERROR)
     dataset = create_dataset(config)
