@@ -13,4 +13,4 @@ log_tensorboard\
 doc/
 deepcarskit\data\dataset\__pycache__\
 deepcarskit\__pycache__\
-.idea\
+.idea/
