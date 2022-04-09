@@ -10,6 +10,7 @@ requirements:
     - python
   host:
     - python
+    - recbole ==1.0.1
     - numpy >=1.17.2
     - scipy ==1.6.0
     - pandas >=1.0.5
@@ -22,6 +23,7 @@ requirements:
     - tensorboard >=2.5.0
   run:
     - python
+    - recbole ==1.0.1
     - numpy >=1.17.2
     - scipy ==1.6.0
     - pandas >=1.0.5
