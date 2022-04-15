@@ -9,7 +9,7 @@ NeuCMFw0
 ################################################
 References
 -----
-Yong Zheng. "DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library", 2022
+Yong Zheng. "A Family of Neural Contextual Matrix Factorization Models for Context-Aware Recommendations", 2022
 
 Notes
 -----

@@ -102,7 +102,9 @@ If you find DeepCARSKit useful for your research or development, please cite the
 @article{deepcarskit,
     title={DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library},
     author={Yong Zheng},
-    year={2022}
+    journal={Software Impacts},
+    year={2022},
+    publisher={Elsevier}
 }
 ```
 ## Contributing
