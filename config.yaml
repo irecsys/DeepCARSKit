@@ -83,7 +83,7 @@ ranking_valid_metric: Recall@10
 ranking_metrics: ['Precision','Recall','NDCG','MRR','MAP']
 topk: [10,20,30]
 
-err_valid_metric: RMSE
+err_valid_metric: MAE
 err_metrics: ['MAE','RMSE','AUC']
 
 ############### Output setting ###############

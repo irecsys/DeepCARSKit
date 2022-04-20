@@ -15,6 +15,8 @@ deepcarskit.quick_start
 import logging
 from logging import getLogger
 import shutil
+import glob
+import os
 
 import numpy
 import torch
@@ -28,6 +30,7 @@ from deepcarskit.data import create_dataset, data_preparation, save_split_datalo
 from deepcarskit.utils.utils import get_model, get_trainer
 from deepcarskit.utils import init_logger, init_seed, set_color
 from multiprocessing.dummy import Pool as ThreadPool
+from recbole.utils import EvaluatorType
 
 
 def eval_folds(args_tuple):
@@ -134,6 +137,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         logger.removeHandler(log_handler)
         logger_name = log_filepath[:-4] + "_" + config['valid_metric'] + " = " + str(best_valid_score) + ".log"
         shutil.move(log_filepath, logger_name)
+        update_best_log(config, logger_name, best_valid_result)
     else:
         if config['save_dataloaders']:
             save_split_dataloaders(config, dataloaders=(train_data, valid_data))
@@ -160,6 +164,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         logger.removeHandler(log_handler)
         logger_name = log_filepath[:-4] + "_" + config['valid_metric'] + " = " + str(best_valid_score) + ".log"
         shutil.move(log_filepath, logger_name)
+        update_best_log(config, logger_name, best_valid_result)
 
     '''
     # example of predictions by context recommender
@@ -192,6 +197,60 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         'best_valid_result': best_valid_result,
         # 'test_result': test_result
     }
+
+def update_best_log(config, newlog, best_valid_result):
+    dataset = config['dataset']
+    # compare which log file is better
+    ranking = False
+    if config['eval_type'] == EvaluatorType.RANKING:
+        ranking = True
+        metric = config['ranking_valid_metric']
+    else:
+        metric = config['err_valid_metric']
+
+    metric_value = best_valid_result[metric.lower()]
+
+    end = newlog.rindex('.')
+    s1 = newlog.index('-')
+    s2 = newlog.index('-', s1 + 1, end)
+    model = newlog[s1 + 1:s2]
+
+    match = [dataset, model, metric]
+
+
+    folder_best = './log/best/'
+    existing_logs = glob.glob(folder_best+'/*.log')
+
+    found = False
+    oldlog = None
+    for file in existing_logs:
+        if all(x in file for x in match):
+            oldlog = file
+            found = True
+            break
+
+    newlog_filename = newlog[newlog.rindex('/')+1:]
+
+    if not found:
+        shutil.copyfile(newlog, folder_best+newlog_filename)
+    else:
+        newvalue = metric_value
+        oldvalue = float(oldlog[oldlog.rindex('=') + 1: oldlog.rindex('.')])
+
+        if ranking:
+            if newvalue > oldvalue:
+                shutil.copyfile(newlog, folder_best+newlog_filename)
+                os.remove(oldlog)
+                impro = (newvalue - oldvalue) / oldvalue
+                print('Better results! improvement: {:.2%}'.format(impro) + ', bes log saved in '+folder_best)
+        else:
+            if newvalue < oldvalue:
+                shutil.copyfile(newlog, folder_best+newlog_filename)
+                os.remove(oldlog)
+                impro = (oldvalue - newvalue) / oldvalue
+                print('Better results! improvement: {:.2%}'.format(impro) + ', best log saved in '+folder_best)
+    return
+
 
 
 def objective_function(config_dict=None, config_file_list=None, saved=True):
