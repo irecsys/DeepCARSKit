@@ -13,7 +13,6 @@ dataset: depaulmovie
 # define data_path as the parent directory of your data folder
 # data_path: d:\dataset\
 
-model: NeuCMF0w
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 RATING_FIELD: rating
@@ -36,6 +35,8 @@ threshold:
 neg_sampling: ~
 
 ############### model setting ###############
+model: NeuCMF0w
+
 # General model
 epochs: 50
 train_batch_size: 500
