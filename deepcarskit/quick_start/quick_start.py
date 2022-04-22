@@ -242,13 +242,13 @@ def update_best_log(config, newlog, best_valid_result):
                 shutil.copyfile(newlog, folder_best+newlog_filename)
                 os.remove(oldlog)
                 impro = (newvalue - oldvalue) / oldvalue
-                print('Better results! improvement: {:.2%}'.format(impro) + ', bes log saved in '+folder_best)
+                print('Better results! improvement: {:.2%}'.format(impro) + ', best log saved in ' + folder_best + newlog_filename)
         else:
             if newvalue < oldvalue:
                 shutil.copyfile(newlog, folder_best+newlog_filename)
                 os.remove(oldlog)
                 impro = (oldvalue - newvalue) / oldvalue
-                print('Better results! improvement: {:.2%}'.format(impro) + ', best log saved in '+folder_best)
+                print('Better results! improvement: {:.2%}'.format(impro) + ', best log saved in ' + folder_best + newlog_filename)
     return
 
 

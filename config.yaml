@@ -54,7 +54,7 @@ mf_embedding_size: 64
 mlp_embedding_size: 64
 mlp_hidden_size: [128,64,32]
 learning_rate: 0.01
-dropout_prob: 0.3
+dropout_prob: 0.1
 
 #tf_train: True
 mf_train: True
