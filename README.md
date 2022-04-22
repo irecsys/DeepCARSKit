@@ -25,6 +25,8 @@ Neural Collaborative Filtering (NeuCF and NeuMF). More algorithms will be added.
 Particularly, item recommendations can be produced for each unique combination of (user and context situation). Relevance and Ranking metrics, 
 such as precision, recall, NDCG, MRR, can be calculated by taking context information into consideration.
 
++ **Autosave Best Logs.** DeepCARSKit can automatically save the best log/configuration of the models you run, in the folder of 'log/best/'.
+
 + **Other Features.** Other characteristic in DeepCARSKit are inherited from RecBole, suc as GPU accelerations.
 
 
