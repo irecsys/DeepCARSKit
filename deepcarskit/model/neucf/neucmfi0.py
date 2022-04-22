@@ -44,6 +44,7 @@ class NeuCMFi0(ContextRecommender):
         self.use_pretrain = config['use_pretrain']
         self.mf_pretrain_path = config['mf_pretrain_path']
         self.mlp_pretrain_path = config['mlp_pretrain_path']
+        self.mf_embedding_size/=self.n_contexts_dim
 
         # define layers and loss
         self.user_mf_embedding = nn.Embedding(self.n_users, self.mf_embedding_size*self.n_contexts_dim)
