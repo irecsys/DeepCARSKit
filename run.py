@@ -15,7 +15,7 @@ if __name__ == '__main__':
     print('GPU availability: ', torch.cuda.is_available())
 
     n_gpu = torch.cuda.device_count()
-    print('Num of PU: ', n_gpu)
+    print('Num of GPU: ', n_gpu)
 
     if n_gpu>0:
         print(torch.cuda.get_device_name(0))
