@@ -98,7 +98,6 @@ A user guide with more and more details is on the way...
 
 ## Cite
 If you find DeepCARSKit useful for your research or development, please cite the following paper:
-(the paper is under review now, more details will be released later)
 
 ```
 @article{deepcarskit,
