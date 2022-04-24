@@ -3,9 +3,10 @@
 
 *A Deep Learning Based Context-Aware Recommendation Library*
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-orange.svg)](./LICENSE)
 [![Website carskit.github.io](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)](https://carskit.github.io/)
 [![python](https://badges.aleen42.com/src/python.svg)](https://badges.aleen42.com/src/python.svg)
+
 
 ## History
 + **[CARSKit](https://github.com/irecsys/CARSKit)** was released in 2015, and it was the first open-source library for 
