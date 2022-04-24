@@ -81,6 +81,11 @@ More specifically, you need to prepare a data set looks like this: (use 'float' 
 + contexts:token => a concatenation of context conditions
 + uc_id:token => a concatenation of user_id and contexts
 
+### NeuCMF Framework
+An extensive NeuCMF framework is included in the DeepCARSKit library.
+
+![alt text](images/NeuCMF.png)
+
 
 ### Hyperparameter tuning 
 You can tune up the parameters from the configuration file, config.yaml
