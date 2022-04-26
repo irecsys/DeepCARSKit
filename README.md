@@ -91,7 +91,7 @@ More specifically, you need to prepare a data set looks like this: (use 'float' 
 ### Algorithms in NeuCMF Framework
 An extensive NeuCMF framework is included in the DeepCARSKit library. There are multiple variants of the NeuCMF models in this framework.
 
-![alt text](images/NeuCMF.png)
+[![alt text](images/NeuCMF.png)](https://carskit.github.io/)
 
 
 ### Hyperparameter tuning 
