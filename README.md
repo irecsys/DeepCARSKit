@@ -9,7 +9,7 @@
 [![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1016/j.simpa.2022.100292)](https://doi.org/10.1016/j.simpa.2022.100292)
 [![DOI:10.1007/978-3-319-76207-4_15](https://zenodo.org/badge/DOI/10.1016/j.simpa.2022.100292.svg)](https://doi.org/10.1016/j.simpa.2022.100292)
 
-![alt text](images/intro-img1.jpg)
+[![CARSKit Website](images/intro-img1.jpg)](https://carskit.github.io/)
 
 
 ## History
