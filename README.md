@@ -9,6 +9,8 @@
 [![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1016/j.simpa.2022.100292)](https://doi.org/10.1016/j.simpa.2022.100292)
 [![DOI:10.1007/978-3-319-76207-4_15](https://zenodo.org/badge/DOI/10.1016/j.simpa.2022.100292.svg)](https://doi.org/10.1016/j.simpa.2022.100292)
 
+![alt text](images/intro-img1.jpg)
+
 
 ## History
 + **[CARSKit](https://github.com/irecsys/CARSKit)** was released in 2015, and it was the first open-source library for 
