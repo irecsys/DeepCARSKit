@@ -6,6 +6,8 @@
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](./LICENSE)
 [![Website carskit.github.io](https://img.shields.io/website-up-down-green-red/http/monip.org.svg)](https://carskit.github.io/)
 [![python](https://badges.aleen42.com/src/python.svg)](https://badges.aleen42.com/src/python.svg)
+[![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1016/j.simpa.2022.100292)](https://doi.org/10.1016/j.simpa.2022.100292)
+[![DOI:10.1007/978-3-319-76207-4_15](https://zenodo.org/badge/DOI/10.1016/j.simpa.2022.100292.svg)](https://doi.org/10.1016/j.simpa.2022.100292)
 
 
 ## History
