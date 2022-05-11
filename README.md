@@ -40,12 +40,14 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 ## News & Updates
 **03/19/2022**: We release DeepCARSKit v1.0.0
 
-## API Documents
-You can refer to the API doc of DeepCARSKit produced by Sphinx from [here](https://carskit.github.io/doc/DeepCARSKit/index.html).
+## Documents
++ [DeepCARSKit API](https://carskit.github.io/doc/DeepCARSKit/index.html)
++ [RecBole API](https://recbole.io/docs/)
++ Yong Zheng. "[DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library](https://doi.org/10.1016/j.simpa.2022.100292)", Software Impacts, Elsevier, 2022
++ Yong Zheng. "DeepCARSKit: A Demo and User Guide", Adjunct Proceedings of the 30th ACM Conference on User Modeling, Adaptation and Personalization (ACM UMAP), Spain, July, 2022
++ Yong Zheng, Gonzalo Florez Arias. "A Family of Neural Contextual Matrix Factorization Models for Context-Aware Recommendations", Adjunct Proceedings of the 30th ACM Conference on User Modeling, Adaptation and Personalization (ACM UMAP), Spain, July, 2022
 
-We also suggest you to refer to [RecBole API](https://recbole.io/docs/).
 
-A user guide with more and more details is on the way...
 
 
 ## Installation

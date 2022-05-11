@@ -33,4 +33,3 @@ if __name__ == '__main__':
     t1 = time.time()
     total = t1 - t0
     logger.info('time cost: '+ f': {total}s')
-

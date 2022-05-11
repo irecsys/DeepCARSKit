@@ -6,7 +6,7 @@ NeuCMF0i
 ################################################
 References
 -----
-Yong Zheng. "A Family of Neural Contextual Matrix Factorization Models for Context-Aware Recommendations", 2022
+Yong Zheng, Gonzalo Florez Arias. "A Family of Neural Contextual Matrix Factorization Models for Context-Aware Recommendations", ACM UMAP, 2022
 
 Notes
 -----
