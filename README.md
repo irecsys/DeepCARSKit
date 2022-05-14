@@ -43,7 +43,7 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 ## Documents
 + [DeepCARSKit API](https://carskit.github.io/doc/DeepCARSKit/index.html)
 + [RecBole API](https://recbole.io/docs/)
-+ Yong Zheng. "[DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library](https://doi.org/10.1016/j.simpa.2022.100292)", Software Impacts, Elsevier, 2022
++ Yong Zheng. "[DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library](https://doi.org/10.1016/j.simpa.2022.100292)", Software Impacts, Vol. 13, Elsevier, 2022
 + Yong Zheng. "[DeepCARSKit: A Demo and User Guide](https://doi.org/10.1145/3511047.3536417)", Adjunct Proceedings of the 30th ACM Conference on User Modeling, Adaptation and Personalization (ACM UMAP), Spain, July, 2022
 + Yong Zheng, Gonzalo Florez Arias. "[A Family of Neural Contextual Matrix Factorization Models for Context-Aware Recommendations](https://doi.org/10.1145/3511047.3536404)", Adjunct Proceedings of the 30th ACM Conference on User Modeling, Adaptation and Personalization (ACM UMAP), Spain, July, 2022
 
@@ -118,6 +118,8 @@ If you find DeepCARSKit useful for your research or development, please cite the
     title={DeepCARSKit: A Deep Learning Based Context-Aware Recommendation Library},
     author={Zheng, Yong},
     journal={Software Impacts},
+    volume={13},
+    pages={100292},
     year={2022},
     publisher={Elsevier}
 }
