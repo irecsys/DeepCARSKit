@@ -191,8 +191,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
     contexts.append(torch.tensor([locid]))
     contexts.append(torch.tensor([cmpid]))
     print(userid, ', ', itemid, ', ', timeid, ', ', locid, ', ', cmpid)
-    # print("prediction: ",model.forward(user, item, contexts))
-    # exit()
+    print("prediction: ",model.forward(user, item, contexts))
     # '''
 
     return {
