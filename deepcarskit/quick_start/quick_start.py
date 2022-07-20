@@ -8,6 +8,11 @@
 # @Author : Yong Zheng
 # @Notes  : made several changes to adapt it for CARS
 
+# UPDATE:
+# @Time   : 2022/07
+# @Author : Taehyun Kim
+# @Notes  : Update several changes to run to predict using CARS
+
 """
 deepcarskit.quick_start
 ########################
@@ -95,7 +100,6 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
     # train_data, valid_data, test_data = data_preparation(config, dataset)
     train_data, valid_data = data_preparation(config, dataset)
 
-
     CV = False
     if isinstance(train_data, list):
         CV = True
@@ -166,19 +170,19 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         shutil.move(log_filepath, logger_name)
         update_best_log(config, logger_name, best_valid_result)
 
-    '''
+    # '''
     # example of predictions by context recommender
     # note, raw value in the original data is expected to be transformed to inner ID
     
-    # rawid <--->innderid
-    print("innerid: ", dataset._get_innderid_from_rawid("user_id", "1003"))
+    # rawid <--->innerid
+    print("innerid: ", dataset._get_innerid_from_rawid("user_id", "1003"))
     print("rawid: ", dataset._get_rawid_from_innerid("user_id", 1))
     
-    userid = dataset._get_innderid_from_rawid("user_id","1003")
-    itemid = dataset._get_innderid_from_rawid("item_id","tt0120912")
-    timeid = dataset._get_innderid_from_rawid("time","Weekday")
-    locid = dataset._get_innderid_from_rawid("location","Cinema")
-    cmpid = dataset._get_innderid_from_rawid("companion","Alone")
+    userid = dataset._get_innerid_from_rawid("user_id","1003")
+    itemid = dataset._get_innerid_from_rawid("item_id","tt0120912")
+    timeid = dataset._get_innerid_from_rawid("time","Weekday")
+    locid = dataset._get_innerid_from_rawid("location","Cinema")
+    cmpid = dataset._get_innerid_from_rawid("companion","Alone")
 
     user = torch.tensor([userid])
     item = torch.tensor([itemid])
@@ -187,9 +191,9 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
     contexts.append(torch.tensor([locid]))
     contexts.append(torch.tensor([cmpid]))
     print(userid, ', ', itemid, ', ', timeid, ', ', locid, ', ', cmpid)
-    print("prediction: ",model.forward(user, item, contexts))
-    exit()
-    '''
+    # print("prediction: ",model.forward(user, item, contexts))
+    # exit()
+    # '''
 
     return {
         'best_valid_score': best_valid_score,
@@ -197,6 +201,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         'best_valid_result': best_valid_result,
         # 'test_result': test_result
     }
+
 
 def update_best_log(config, newlog, best_valid_result):
     dataset = config['dataset']
@@ -216,7 +221,6 @@ def update_best_log(config, newlog, best_valid_result):
     model = newlog[s1 + 1:s2]
 
     match = [dataset, model, metric]
-
 
     folder_best = './log/best/'
     existing_logs = glob.glob(folder_best+'/*.log')
@@ -250,7 +254,6 @@ def update_best_log(config, newlog, best_valid_result):
                 impro = (oldvalue - newvalue) / oldvalue
                 print('Better results! improvement: {:.2%}'.format(impro) + ', best log saved in ' + folder_best + newlog_filename)
     return
-
 
 
 def objective_function(config_dict=None, config_file_list=None, saved=True):
