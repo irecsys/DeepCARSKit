@@ -57,7 +57,7 @@ DeepCARSKit works with the following operating systems:
 * Windows 10
 * macOS X
 
-DeepCARSKit requires Python version 3.7 or later, torch version 1.7.0 or later, and RecBole version 1.0.0 or later. 
+DeepCARSKit requires Python version 3.7 or later, torch version 1.7.0 or later, and RecBole version 1.0.0 or later (v 1.1+ is not compatible with DeepCARSKit). 
 For more details, you can refer to the list of [requirements](https://github.com/irecsys/DeepCARSKit/blob/main/requirements.txt).
 If you want to use DeepCARSKit with GPU,
 please ensure that CUDA or cudatoolkit version is 9.2 or later.
