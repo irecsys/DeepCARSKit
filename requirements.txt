@@ -1,4 +1,4 @@
-recbole>=1.0.0
+recbole==1.0.0
 torch>=1.7.0
 numpy>=1.17.2
 scipy==1.6.0
