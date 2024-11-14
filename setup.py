@@ -7,8 +7,8 @@ import os
 from setuptools import setup, find_packages
 
 install_requires = ['numpy>=1.17.2', 'torch>=1.7.0', 'scipy==1.6.0', 'pandas>=1.0.5', 'tqdm>=4.48.2',
-                    'colorlog==4.7.2','colorama==0.4.4',
-                    'scikit_learn>=0.23.2', 'pyyaml>=5.1.0', 'tensorboard>=2.5.0', 'recbole==1.0.0']
+                    'colorlog==4.7.2','colorama==0.4.4', 'numpy==1.20.0',
+                    'scikit_learn>=0.23.2', 'pyyaml>=5.1.0', 'tensorboard>=2.5.0', 'recbole==1.0.1']
 
 setup_requires = []
 
@@ -27,7 +27,7 @@ if on_rtd:
 setup(
     name='deepcarskit',
     version=
-    '1.0.0',  # please remember to edit deepcarskit/__init__.py in response, once updating the version
+    '1.0.1',  # please remember to edit deepcarskit/__init__.py in response, once updating the version
     description='A Deep Learning Based Context-Aware Recommendation Library',
     long_description_content_type="text/markdown",
     url='https://github.com/irecsys/DeepCARSKit',

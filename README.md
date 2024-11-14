@@ -38,6 +38,10 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 
 
 ## News & Updates
+**11/13/2024**: We release DeepCARSKit v1.0.1
++ Update requirements.txt
++ Address the randomness issue in N-fold cross validation by utilizing multiprocessing
+
 **03/19/2022**: We release DeepCARSKit v1.0.0
 
 ## Documents
@@ -57,11 +61,19 @@ DeepCARSKit works with the following operating systems:
 * Windows 10
 * macOS X
 
-DeepCARSKit requires Python version 3.7 or later, torch version 1.7.0 or later, and RecBole version 1.0.0 or later (v 1.1+ is not compatible with DeepCARSKit). 
+DeepCARSKit requires Python version 3.7 or later, torch version 1.7.0 or later, and RecBole version 1.0.1. 
 For more details, you can refer to the list of [requirements](https://github.com/irecsys/DeepCARSKit/blob/main/requirements.txt).
 If you want to use DeepCARSKit with GPU,
 please ensure that CUDA or cudatoolkit version is 9.2 or later.
 This requires NVIDIA driver version >= 396.26 (for Linux) or >= 397.44 (for Windows10).
+
+The DeepCARSKit library was successfully tested by using the following environments:
+- `python==3.9.20`
+- `recbole==1.0.1`
+- `numpy==1.20.0`
+- `scipy==1.6.0`
+- `lightgbm==4.5.0`
+- `xgboost==2.1.1`
 
 More info about installation from conda and pip will be released later.
 Currenly, you can make a git clone of the source codes. We will pulish it to pypi and conda in next release.
@@ -103,10 +115,10 @@ A user guide with more and more details is on the way...
 
 
 ## Major Releases
-| Releases  | Date       |
-|-----------|------------|
-| v1.0.0    | 03/19/2022 |
-
+| Releases | Date       |
+|----------|------------|
+| v1.0.1   | 11/13/2024 |
+| v1.0.0   | 03/19/2022 |
 
 
 
