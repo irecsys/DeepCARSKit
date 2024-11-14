@@ -19,10 +19,10 @@ import shutil
 import glob
 import os
 
-import numpy
+import numpy as np
 import torch
 import pickle
-
+import threading
 
 # from past.builtins import raw_input
 
@@ -37,7 +37,10 @@ from recbole.utils import EvaluatorType
 def eval_folds(args_tuple):
     train_data_fold = args_tuple[0]
     valid_data_fold = args_tuple[1]
+
     config = args_tuple[2]
+    init_seed(config['seed'], config['reproducibility'])
+
     logger = args_tuple[3]
     fold = args_tuple[4]
 
@@ -315,6 +318,7 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
     """
     checkpoint = torch.load(model_file)
     config = checkpoint['config']
+    init_seed(config['seed'], config['reproducibility'])
     init_logger(config)
 
     dataset = None
