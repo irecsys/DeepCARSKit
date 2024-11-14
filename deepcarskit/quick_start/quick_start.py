@@ -14,15 +14,13 @@ deepcarskit.quick_start
 """
 import logging
 from logging import getLogger
-from recbole.utils import init_seed
 import shutil
 import glob
 import os
 
-import numpy as np
 import torch
 import pickle
-import threading
+
 
 # from past.builtins import raw_input
 
@@ -31,6 +29,7 @@ from deepcarskit.data import create_dataset, data_preparation, save_split_datalo
 from deepcarskit.utils.utils import get_model, get_trainer
 from deepcarskit.utils import init_logger, init_seed, set_color
 from multiprocessing.dummy import Pool as ThreadPool
+from multiprocessing import Pool
 from recbole.utils import EvaluatorType
 
 
@@ -112,10 +111,15 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
             t = (train_data[i], valid_data[i], config, logger, (i+1))
             list_train_test.append(t)
 
-        pool = ThreadPool()
-        rsts = pool.map(eval_folds, list_train_test)
-        pool.close()
-        pool.join()
+        # pool = ThreadPool()
+        # rsts = pool.map(eval_folds, list_train_test)
+        # pool.close()
+        # pool.join()
+        # print('cpu count: ', os.cpu_count())
+
+        num_processes = config['eval_args']['split']['num_processes']
+        with Pool(processes=num_processes) as pool:
+            rsts = pool.map(eval_folds, list_train_test)
 
         best_valid_score = 0
         best_valid_result = {}

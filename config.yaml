@@ -69,7 +69,7 @@ embedding_size: 64
 ############### Evaluation setting ###############
 eval_args:
   # split: {'RS': [0.8, 0.2]} # hold-out evaluation
-  split: {'CV': 5} # N-fold cross validation
+  split: {'CV': 5, 'num_processes': 4} # N-fold cross validation by multiprocessing
   group_by: user
   mode: labeled # do not change it, DeepCARSKit only support this mode
   order: RO
