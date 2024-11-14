@@ -14,6 +14,7 @@ deepcarskit.quick_start
 """
 import logging
 from logging import getLogger
+from recbole.utils import init_seed
 import shutil
 import glob
 import os
@@ -44,6 +45,7 @@ def eval_folds(args_tuple):
         save_split_dataloaders(config, dataloaders=(train_data_fold, valid_data_fold))
 
     # model loading and initialization
+    init_seed(config['seed'], config['reproducibility'])
     model = get_model(config['model'])(config, train_data_fold.dataset).to(config['device'])
 
     # trainer loading and initialization
@@ -143,6 +145,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
             save_split_dataloaders(config, dataloaders=(train_data, valid_data))
 
         # model loading and initialization
+        init_seed(config['seed'], config['reproducibility'])
         model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
         logger.info(model)
 
@@ -267,6 +270,7 @@ def objective_function(config_dict=None, config_file_list=None, saved=True):
     logging.basicConfig(level=logging.ERROR)
     dataset = create_dataset(config)
     train_data, valid_data, test_data = data_preparation(config, dataset)
+    init_seed(config['seed'], config['reproducibility'])
     model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
     best_valid_score, best_valid_result = trainer.fit(train_data, valid_data, verbose=False, saved=saved)
@@ -325,6 +329,7 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
             dataset = create_dataset(config)
         train_data, valid_data, test_data = data_preparation(config, dataset)
 
+    init_seed(config['seed'], config['reproducibility'])
     model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
     model.load_state_dict(checkpoint['state_dict'])
     model.load_other_parameter(checkpoint.get('other_parameter'))

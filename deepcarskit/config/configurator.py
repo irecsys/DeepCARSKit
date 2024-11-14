@@ -9,6 +9,7 @@ deepcarskit.config.configurator
 
 from deepcarskit.utils.utils import get_model
 from recbole.config import Config
+from recbole.utils import init_seed
 
 
 class CARSConfig(Config):

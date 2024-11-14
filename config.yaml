@@ -9,7 +9,7 @@ save_dataloaders: False
 
 ############### data setting ###############
 seed: 2022
-dataset: tripadvisor
+dataset: depaulmovie
 # define data_path as the parent directory of your data folder
 # data_path: d:\dataset\
 
