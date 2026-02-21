@@ -12,12 +12,14 @@
 deepcarskit.quick_start
 ########################
 """
-import logging
 from logging import getLogger
+from .utils import output_metrics_to_carskit
+
+import pandas as pd
+import logging
 import shutil
 import glob
 import os
-
 import torch
 import pickle
 
@@ -145,7 +147,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         best_valid_score = round(best_valid_score/n_folds, config['metric_decimal_place'])
         for key in best_valid_result:
             best_valid_result[key] = round(best_valid_result[key]/n_folds, config['metric_decimal_place'])
-        msghead = 'Data: '+config['dataset']+', Results on '+str(n_folds)+' CV: best valid by '+config['model']
+        msghead = 'Data: '+config['dataset']+', Results on '+str(n_folds)+' CV (DeepCARSKit): best valid by '+config['model']
         layers = [str(int) for int in config['mlp_hidden_size']]
         layers = ' '.join(layers)
         logger.info(set_color(msghead, 'yellow') + f': {best_valid_result}'+', lrate: '+str(config['learning_rate'])+', layers: ['+layers+']')
@@ -211,12 +213,16 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
     exit()
     '''
 
+    output_metrics_to_carskit(config, logger)
+
     return {
         'best_valid_score': best_valid_score,
         'valid_score_bigger': config['valid_metric_bigger'],
         'best_valid_result': best_valid_result,
         # 'test_result': test_result
     }
+
+
 
 def update_best_log(config, newlog, best_valid_result):
     dataset = config['dataset']

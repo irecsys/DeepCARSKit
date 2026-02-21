@@ -61,3 +61,12 @@ class CARSConfig(Config):
             final_config_dict['metrics'] = final_config_dict['err_metrics']
             final_config_dict['valid_metric'] = final_config_dict['err_valid_metric']
         return final_config_dict
+
+    def get(self, key, default=None):
+        """
+        Safe getter for config attributes.
+        Tries to return the value from the config dict,
+        if not present, returns the default value.
+        """
+        final_dict = self._get_final_config_dict()
+        return final_dict.get(key, default)
