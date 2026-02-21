@@ -35,7 +35,7 @@ threshold:
 neg_sampling: ~
 
 ############### model setting ###############
-model: NeuCMFii
+model: NeuCMF0w
 
 # General model
 epochs: 50
@@ -76,7 +76,7 @@ eval_args:
 
 # indicate the task is ranking or rating prediction
 # evaluation metrics automatically selected based on True/False setting here
-ranking: False
+ranking: True
 # indicate activation function for ranking task
 # LeakyReLu is the default activation function for both ranking or rating prediction
 sigmoid: False
@@ -92,7 +92,8 @@ err_metrics: ['MAE','RMSE','AUC']
 ############### Output setting ###############
 loss_decimal_place: 4
 metric_decimal_place: 4
-
+save_per_uc_metrics: True
+save_per_uc_folder: saved
 
 
 

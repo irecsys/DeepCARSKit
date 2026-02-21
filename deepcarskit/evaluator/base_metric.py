@@ -57,7 +57,10 @@ class TopkMetric(AbstractMetric):
 
     def __init__(self, config):
         super().__init__(config)
+        self.config = config
         self.topk = config['topk']
+        self.last_per_uc = None
+
 
     def used_info(self, dataobject):
         """Get the bool matrix indicating whether the corresponding item is positive
@@ -77,6 +80,7 @@ class TopkMetric(AbstractMetric):
         Returns:
             dict: metric values required in the configuration.
         """
+        self.last_per_uc = value.copy()
 
         metric_dict = {}
         avg_result = value.mean(axis=0)
@@ -97,6 +101,13 @@ class TopkMetric(AbstractMetric):
             numpy.ndarray: metrics for each user, including values from `metric@1` to `metric@max(self.topk)`.
         """
         raise NotImplementedError('Method [metric_info] of top-k metric should be implemented.')
+
+    def get_per_uc(self):
+        """
+        Returns:
+            numpy.ndarray, shape = (n_uc, max_k)
+        """
+        return self.last_per_uc
 
 
 class LossMetric(AbstractMetric):

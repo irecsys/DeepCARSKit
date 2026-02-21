@@ -26,6 +26,7 @@ import pickle
 
 from deepcarskit.config import CARSConfig
 from deepcarskit.data import create_dataset, data_preparation, save_split_dataloaders, load_split_dataloaders
+from deepcarskit.trainer.trainer import TrainerWithBestEpoch
 from deepcarskit.utils.utils import get_model, get_trainer
 from deepcarskit.utils import init_logger, init_seed, set_color
 from multiprocessing.dummy import Pool as ThreadPool
@@ -43,6 +44,10 @@ def eval_folds(args_tuple):
     logger = args_tuple[3]
     fold = args_tuple[4]
 
+    import copy
+    cfg_fold = copy.deepcopy(config)
+    cfg_fold['current_fold'] = fold
+
     if config['save_dataloaders']:
         save_split_dataloaders(config, dataloaders=(train_data_fold, valid_data_fold))
 
@@ -51,7 +56,7 @@ def eval_folds(args_tuple):
     model = get_model(config['model'])(config, train_data_fold.dataset).to(config['device'])
 
     # trainer loading and initialization
-    trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
+    trainer = get_trainer(cfg_fold['MODEL_TYPE'], cfg_fold['model'])(cfg_fold, model)
     name = trainer.saved_model_file
     ind = name.rindex('.')
     lname = list(name)
@@ -59,9 +64,11 @@ def eval_folds(args_tuple):
     trainer.saved_model_file = ''.join(lname)
 
     # model training
-    best_valid_score_fold, best_valid_result_fold = trainer.fit(
+    best_valid_score_fold, best_valid_result_fold, best_epoch_fold = trainer.fit(
         train_data_fold, valid_data_fold, saved=True, show_progress=config['show_progress']
     )
+    if cfg_fold['save_per_uc_metrics']:
+        trainer.save_best_per_uc(best_epoch_fold)
     msghead = 'Fold ' + str(fold) + ' completed: '
     logger.info(set_color(msghead, 'yellow') + f': {best_valid_result_fold}')
 
@@ -160,9 +167,12 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
         trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
 
         # model training
-        best_valid_score, best_valid_result = trainer.fit(
+        best_valid_score, best_valid_result, best_epoch = trainer.fit(
             train_data, valid_data, saved=saved, show_progress=config['show_progress']
         )
+
+        if config['save_per_uc_metrics']:
+            trainer.save_best_per_uc(best_epoch)
 
         # model evaluation
         # test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])

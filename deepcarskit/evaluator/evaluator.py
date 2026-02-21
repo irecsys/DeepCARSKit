@@ -1,4 +1,4 @@
-# @Time   : 2021/12
+# @Time   : 2026/02
 # @Author : Yong Zheng
 # @Notes  : added F1 metrics, if precision and recall defined in user requests
 
@@ -9,6 +9,7 @@ deepcarskit.evaluator.evaluator
 import numpy as np
 from recbole.evaluator.register import metrics_dict
 from recbole.evaluator.collector import DataStruct
+from recbole.evaluator.collector import Register
 
 
 class Evaluator(object):
@@ -68,3 +69,42 @@ class Evaluator(object):
                         metric[key] = f1
                     result_dict.update(metric)
         return result_dict
+
+
+    def evaluate_per_uc(self, dataobject: DataStruct, save_path=None):
+
+        scores = dataobject.get('rec.topk')
+        uids = dataobject.get('data.uid')
+        cids = dataobject.get('data.cid')
+        ucids = dataobject.get('data.ucid')
+
+        results = []
+
+        n = len(uids)
+
+        for i in range(n):
+            sub_data = DataStruct()
+            sub_data.update_tensor('rec.topk', scores[i:i + 1])
+            sub_data.update_tensor('data.uid', uids[i:i + 1])
+            sub_data.update_tensor('data.cid', cids[i:i + 1])
+            sub_data.update_tensor('data.ucid', ucids[i:i + 1])
+
+            row = {
+                'uid': int(uids[i]),
+                'cid': int(cids[i]),
+                'ucid': int(ucids[i])
+            }
+
+            for metric in self.metrics:
+                metric_val = self.metric_class[metric].calculate_metric(sub_data)
+                row.update(metric_val)
+
+            results.append(row)
+
+        if save_path is not None:
+            import pandas as pd
+            pd.DataFrame(results).to_csv(save_path, index=False)
+
+        return results
+
+

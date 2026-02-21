@@ -1,4 +1,4 @@
-# @Time   : 2021/12
+# @Time   : 2026/02
 # @Author : Yong Zheng
 # @Notes  : Inherit from recbole.evaluator.Collector
 
@@ -30,6 +30,14 @@ class CARSCollector(Collector):
         self.topk = self.config['topk']
         self.device = self.config['device']
 
+        if self.config['save_per_uc_metrics']:
+            extra_fields = ['rec.topk', 'data.uid', 'data.cid', 'data.ucid']
+            for f in extra_fields:
+                setattr(self.register, f, True)
+
+    def clear(self):
+        self.data_struct._data_dict.clear()
+
     def eval_batch_collect(
         self, scores_tensor: torch.Tensor, interaction, positive_u: torch.Tensor, positive_i: torch.Tensor
     ):
@@ -40,6 +48,14 @@ class CARSCollector(Collector):
                 positive_u(Torch.Tensor): the row index of positive items for each user.
                 positive_i(Torch.Tensor): the positive item id for each user.
         """
+        uid = interaction[self.config['USER_ID_FIELD']].to(self.device)
+        cid = interaction[self.config['CONTEXT_SITUATION_FIELD']].to(self.device)
+        ucid = interaction[self.config['USER_CONTEXT_FIELD']].to(self.device)
+
+        self.data_struct.update_tensor('data.uid', uid)
+        self.data_struct.update_tensor('data.cid', cid)
+        self.data_struct.update_tensor('data.ucid', ucid)
+
         if self.register.need('rec.items'):
 
             # get topk
@@ -74,7 +90,6 @@ class CARSCollector(Collector):
             self.data_struct.update_tensor('rec.meanrank', result)
 
         if self.register.need('rec.score'):
-
             self.data_struct.update_tensor('rec.score', scores_tensor)
 
         if self.register.need('data.label'):
