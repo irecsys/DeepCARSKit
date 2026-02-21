@@ -38,6 +38,10 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 
 
 ## News & Updates
+**02/21/2026**: We release DeepCARSKit v1.1
++ Allow users to output metrics for each (user, contexts) pairs
++ Output top-N metrics based on two styles -- DeepCARSKit and CARSKit. 
+
 **11/13/2024**: We release DeepCARSKit v1.0.1
 + Update requirements.txt
 + Address the randomness issue in N-fold cross validation by utilizing multiprocessing
@@ -117,6 +121,7 @@ A user guide with more and more details is on the way...
 ## Major Releases
 | Releases | Date       |
 |----------|------------|
+| v1.1.0   | 02/21/2026 |
 | v1.0.1   | 11/13/2024 |
 | v1.0.0   | 03/19/2022 |
 
