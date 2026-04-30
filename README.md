@@ -40,6 +40,8 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 ## News & Updates
 **04/29/2026**: We release DeepCARSKit v2.0.0
 + Added a threshold_to_binary_label option to control whether ratings are converted into binary labels for rankings.
+  + Predicted ratings can be utilized for top-N rankings if label is numerical rating, MSELoss is used in training.
+  + BCELoss can also be used for top-N recommendation task, if label is converted to binary ones by rating threshold.
 + Enabled configurable output activation via out_activation in YAML, with automatic sigmoid adjustment when using BCELoss.
 + Implemented automatic loss selection based on task type and label format for both ranking and rating tasks.
 + Updated NeuCMFii and NeuCMFi0 to use pooling for context fusion, removing the need to adjust embedding sizes.
