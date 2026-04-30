@@ -38,6 +38,14 @@ such as precision, recall, NDCG, MRR, can be calculated by taking context inform
 
 
 ## News & Updates
+**04/29/2026**: We release DeepCARSKit v2.0.0
++ Added a threshold_to_binary_label option to control whether ratings are converted into binary labels for rankings.
++ Enabled configurable output activation via out_activation in YAML, with automatic sigmoid adjustment when using BCELoss.
++ Implemented automatic loss selection based on task type and label format for both ranking and rating tasks.
++ Updated NeuCMFii and NeuCMFi0 to use pooling for context fusion, removing the need to adjust embedding sizes.
++ Fixed save_per_uc_metrics to properly separate ranking and rating logic.
+
+
 **02/21/2026**: We release DeepCARSKit v1.1
 + Allow users to output metrics for each (user, contexts) pairs
 + Output top-N metrics based on two styles -- DeepCARSKit and CARSKit. 
@@ -121,6 +129,7 @@ A user guide with more and more details is on the way...
 ## Major Releases
 | Releases | Date       |
 |----------|------------|
+| v2.0.0   | 04/29/2026 |
 | v1.1.0   | 02/21/2026 |
 | v1.0.1   | 11/13/2024 |
 | v1.0.0   | 03/19/2022 |
