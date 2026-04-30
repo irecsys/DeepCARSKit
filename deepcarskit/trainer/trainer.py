@@ -56,14 +56,33 @@ class CARSTrainer(Trainer):
         self.evaluator = Evaluator(config)
         self.config = config
         self._epoch_structs = {}  # save struct for each epoch
+        self._warned_empty_eval = False
 
         if self.config['save_per_uc_metrics']:
             self.config['eval_step'] = 1
         self.item_tensor = None
 
+    def _build_empty_eval_result(self):
+        result = {}
+        metric_names = [metric.lower() for metric in self.config['metrics']]
+
+        for metric in metric_names:
+            metric_obj = self.evaluator.metric_class.get(metric)
+            if self.config['eval_type'] == EvaluatorType.RANKING and getattr(metric_obj, 'metric_type', None) == EvaluatorType.RANKING:
+                for k in self.config['topk']:
+                    result[f'{metric}@{k}'] = 0.0
+            else:
+                result[metric] = 0.0
+
+        if self.config['eval_type'] == EvaluatorType.RANKING and 'precision' in metric_names and 'recall' in metric_names:
+            for k in self.config['topk']:
+                result[f'f1@{k}'] = 0.0
+
+        return result
+
     @torch.no_grad()
     def evaluate(self, eval_data, load_best_model=False, model_file=None, show_progress=False, epoch=None):
-        if not eval_data:
+        if eval_data is None:
             return
 
         if epoch is None:
@@ -76,14 +95,27 @@ class CARSTrainer(Trainer):
             self.model.load_other_parameter(checkpoint.get('other_parameter'))
             self.logger.info(f'Loading model structure and parameters from {checkpoint_file}')
 
+        eval_data_len = len(eval_data) if hasattr(eval_data, '__len__') else None
+        if eval_data_len == 0:
+            if hasattr(self.eval_collector, 'clear'):
+                self.eval_collector.clear()
+            if not self._warned_empty_eval:
+                self.logger.warning(
+                    'Validation/evaluation split contains no positive samples after threshold filtering; '
+                    'returning zero metrics for this evaluation pass.'
+                )
+                self._warned_empty_eval = True
+            return self._build_empty_eval_result()
+
         self.model.eval()
 
-        if isinstance(eval_data, FullSortEvalDataLoader):
+        if isinstance(eval_data, LabledDataSortEvalDataLoader):
+            # LabledDataSortEvalDataLoader follows the same batch contract as full-sort evaluation.
             eval_func = self._full_sort_batch_eval
             if self.item_tensor is None:
                 self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
-        elif isinstance(eval_data, LabledDataSortEvalDataLoader):
-            eval_func = self._labled_data_sort_batch_eval
+        elif isinstance(eval_data, FullSortEvalDataLoader):
+            eval_func = self._full_sort_batch_eval
             if self.item_tensor is None:
                 self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
         else:
@@ -147,8 +179,10 @@ class CARSTrainer(Trainer):
         best_result = None
         best_epoch = None
 
-        metric_key = self.config['ranking_valid_metric'].lower()
-        bigger = self.valid_metric_bigger  # True for Recall/NDCG/MAP
+        # Use the active valid_metric (set by CARSConfig based on ranking flag)
+        # rather than always using ranking_valid_metric when ranking may be False
+        metric_key = self.config['valid_metric'].lower()
+        bigger = self.valid_metric_bigger  # True for Recall/NDCG/MAP; False for MAE/RMSE
 
         for epoch_idx in range(self.epochs):
             self.current_epoch = epoch_idx
@@ -160,7 +194,7 @@ class CARSTrainer(Trainer):
             )
 
             # ===== validation =====
-            if valid_data:
+            if valid_data is not None:
                 result = self.evaluate(
                     valid_data,
                     epoch=epoch_idx,
@@ -190,8 +224,10 @@ class CARSTrainer(Trainer):
                     # save checkpoint for best epoch
                     self._save_checkpoint(epoch_idx)
 
-        # running for outputing per-uc records
-        if self.config['save_per_uc_metrics'] and best_epoch is not None:
+        valid_data_len = len(valid_data) if valid_data is not None and hasattr(valid_data, '__len__') else None
+
+        # running for outputing per-uc records (ranking tasks only, since evaluate_per_uc uses rec.topk)
+        if self.config['save_per_uc_metrics'] and self.config.get('ranking', False) and best_epoch is not None and valid_data_len != 0:
             self.logger.info(f"Re-evaluating best epoch {best_epoch} for per-UC metrics")
 
             # load best model
@@ -210,6 +246,10 @@ class CARSTrainer(Trainer):
 
             # save
             self.save_best_per_uc(best_epoch)
+        elif self.config['save_per_uc_metrics'] and self.config.get('ranking', False) and best_epoch is not None and valid_data_len == 0:
+            self.logger.warning(
+                'Skipping per-UC metric export because the validation split contains no positive samples.'
+            )
 
         return best_score, best_result, best_epoch
 

@@ -31,6 +31,7 @@ from deepcarskit.data import create_dataset, data_preparation, save_split_datalo
 from deepcarskit.trainer.trainer import TrainerWithBestEpoch
 from deepcarskit.utils.utils import get_model, get_trainer
 from deepcarskit.utils import init_logger, init_seed, set_color
+from deepcarskit import __version__
 from multiprocessing.dummy import Pool as ThreadPool
 from multiprocessing import Pool
 from recbole.utils import EvaluatorType
@@ -69,7 +70,7 @@ def eval_folds(args_tuple):
     best_valid_score_fold, best_valid_result_fold, best_epoch_fold = trainer.fit(
         train_data_fold, valid_data_fold, saved=True, show_progress=config['show_progress']
     )
-    if cfg_fold['save_per_uc_metrics']:
+    if cfg_fold['save_per_uc_metrics'] and cfg_fold.get('ranking', False):
         trainer.save_best_per_uc(best_epoch_fold)
     msghead = 'Fold ' + str(fold) + ' completed: '
     logger.info(set_color(msghead, 'yellow') + f': {best_valid_result_fold}')
@@ -103,6 +104,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
     if config['save_dataset']:
         dataset.save()
     logger.info(dataset)
+    logger.info(f'Welcome to use DeepCARSKit version {__version__}')
 
     # dataset splitting
     # train_data, valid_data, test_data = data_preparation(config, dataset)
@@ -173,7 +175,7 @@ def run(model=None, dataset=None, config_file_list=None, config_dict=None, saved
             train_data, valid_data, saved=saved, show_progress=config['show_progress']
         )
 
-        if config['save_per_uc_metrics']:
+        if config['save_per_uc_metrics'] and config.get('ranking', False):
             trainer.save_best_per_uc(best_epoch)
 
         # model evaluation
@@ -292,11 +294,11 @@ def objective_function(config_dict=None, config_file_list=None, saved=True):
     init_seed(config['seed'], config['reproducibility'])
     logging.basicConfig(level=logging.ERROR)
     dataset = create_dataset(config)
-    train_data, valid_data, test_data = data_preparation(config, dataset)
+    train_data, valid_data = data_preparation(config, dataset)
     init_seed(config['seed'], config['reproducibility'])
     model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
-    best_valid_score, best_valid_result = trainer.fit(train_data, valid_data, verbose=False, saved=saved)
+    best_valid_score, best_valid_result, _ = trainer.fit(train_data, valid_data, verbose=False, saved=saved)
     # test_result = trainer.evaluate(test_data, load_best_model=saved)
 
     return {
@@ -347,15 +349,15 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
             dataset = pickle.load(f)
 
     if dataloader_file:
-        train_data, valid_data, test_data = load_split_dataloaders(dataloader_file)
+        train_data, valid_data = load_split_dataloaders(dataloader_file)
     else:
         if dataset is None:
             dataset = create_dataset(config)
-        train_data, valid_data, test_data = data_preparation(config, dataset)
+        train_data, valid_data = data_preparation(config, dataset)
 
     init_seed(config['seed'], config['reproducibility'])
     model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
     model.load_state_dict(checkpoint['state_dict'])
     model.load_other_parameter(checkpoint.get('other_parameter'))
 
-    return config, model, dataset, train_data, valid_data, test_data
+    return config, model, dataset, train_data, valid_data

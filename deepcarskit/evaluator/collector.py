@@ -31,7 +31,11 @@ class CARSCollector(Collector):
         self.device = self.config['device']
 
         if self.config['save_per_uc_metrics']:
-            extra_fields = ['rec.topk', 'data.uid', 'data.cid', 'data.ucid']
+            extra_fields = ['data.uid', 'data.cid', 'data.ucid']
+            # rec.topk is only meaningful for ranking tasks; skipping it for rating prediction
+            # avoids 2D indexing errors when scores_tensor is 1D (VALUE evaluation)
+            if self.config.get('ranking', False):
+                extra_fields = ['rec.topk'] + extra_fields
             for f in extra_fields:
                 setattr(self.register, f, True)
 

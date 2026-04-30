@@ -41,11 +41,14 @@ class LabledDataSortEvalDataLoader(FullSortEvalDataLoader):
         self.uid_field = dataset.uid_field
         self.iid_field = dataset.iid_field
         self.is_sequential = config['MODEL_TYPE'] == ModelType.SEQUENTIAL
+        self.has_positive_samples = True
 
         self.user_id = config['USER_ID_FIELD']
         self.item_id = config['ITEM_ID_FIELD']
         self.uc_id = config['USER_CONTEXT_FIELD']
         self.LABEL = config['LABEL_FIELD']
+        self.threshold = config.get('threshold', None)
+        self.threshold_to_binary_label = config.get('threshold_to_binary_label', True)
 
         if not self.is_sequential:
             multidict_uc_items = self._get_multidict(dataset) # uc and rated items
@@ -54,8 +57,9 @@ class LabledDataSortEvalDataLoader(FullSortEvalDataLoader):
                 uc_positve_item = all items that uc have rated and must be positive in the evaluation set.
                 uc_history_item = all items that uc have rated in the training set.
             '''
-            self.ucid_list = multidict_uc_items.keys()
-            self.uc_num = max(self.ucid_list)+1
+            self.ucid_list = list(multidict_uc_items.keys())
+            self.has_positive_samples = len(self.ucid_list) > 0
+            self.uc_num = dataset.num(self.uc_id)
             self.ucid2items_num = np.zeros(self.uc_num, dtype=np.int64)
             self.ucid2positive_item = np.array([None] * self.uc_num)
             self.ucid2history_item = np.array([None] * self.uc_num)
@@ -90,13 +94,22 @@ class LabledDataSortEvalDataLoader(FullSortEvalDataLoader):
                     context = context_fields[i]
                     dict_context[context].append(tuple_context[i])
 
+            if not self.has_positive_samples:
+                self.logger = getLogger()
+                self.logger.warning(
+                    'Validation/evaluation split contains no positive samples after threshold filtering; '
+                    'creating an empty labeled evaluation dataloader.'
+                )
+
             self.ucid_list = torch.tensor(list(self.ucid_list), dtype=torch.int64)
             uid_list = torch.tensor(list(uid_list), dtype=torch.int64)
             # add uc data into data for predictions
-            self.uc_df = dataset.join(Interaction({self.uid_field: uid_list, self.uc_id: self.ucid_list}))
-            for context in dict_context.keys():
-                new_inter = dataset.join(Interaction({context: torch.tensor(list(dict_context[context]), dtype=torch.int64)}))
-                self.uc_df.update(new_inter)
+            self.uc_df = Interaction({self.uid_field: uid_list, self.uc_id: self.ucid_list})
+            if self.has_positive_samples:
+                self.uc_df = dataset.join(self.uc_df)
+                for context in dict_context.keys():
+                    new_inter = dataset.join(Interaction({context: torch.tensor(list(dict_context[context]), dtype=torch.int64)}))
+                    self.uc_df.update(new_inter)
 
 
         self.config = config
@@ -135,6 +148,8 @@ class LabledDataSortEvalDataLoader(FullSortEvalDataLoader):
             for i in range(0, num_rates):
                 key = items[i]
                 value = rates[i]
+                if not self._is_positive_label_value(value):
+                    continue
                 dict_item_rating[key] = value
             # sort items based on ratings
             dict_item_rating_decending = sorted(dict_item_rating.items(), key=lambda x: x[1], reverse=True)
@@ -142,6 +157,14 @@ class LabledDataSortEvalDataLoader(FullSortEvalDataLoader):
             for items in dict_item_rating_decending:
                 multidict_uc_items[uc_id].append(items[0])
         return multidict_uc_items
+
+    def _is_positive_label_value(self, value):
+        # ranking + threshold_to_binary_label=False: threshold is used only for evaluation positives
+        if self.threshold and (not self.threshold_to_binary_label):
+            threshold_value = list(self.threshold.values())[0]
+            return value >= threshold_value
+        # default ranking behavior: positive labels are > 0
+        return value > 0
 
     @property
     def pr_end(self):

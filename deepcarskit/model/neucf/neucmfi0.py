@@ -46,12 +46,16 @@ class NeuCMFi0(ContextRecommender):
         self.mlp_pretrain_path = config['mlp_pretrain_path']
 
         # define layers and loss
-        self.user_mf_embedding = nn.Embedding(self.n_users, self.mf_embedding_size*self.n_contexts_dim)
-        self.item_mf_embedding = nn.Embedding(self.n_items, self.mf_embedding_size*self.n_contexts_dim)
-        self.context_situation_mf_embedding = []
+        # Pooling design:
+        # instead of concatenating one embedding per context dimension and inflating MF width,
+        # we keep user/item embeddings at the original YAML mf_embedding_size and fuse multiple
+        # context embeddings by mean pooling in the MF branch.
+        self.user_mf_embedding = nn.Embedding(self.n_users, self.mf_embedding_size)
+        self.item_mf_embedding = nn.Embedding(self.n_items, self.mf_embedding_size)
+        self.context_situation_mf_embedding = nn.ModuleList()
         self.user_mlp_embedding = nn.Embedding(self.n_users, self.mlp_embedding_size)
         self.item_mlp_embedding = nn.Embedding(self.n_items, self.mlp_embedding_size)
-        self.context_dimensions_mlp_embedding = []
+        self.context_dimensions_mlp_embedding = nn.ModuleList()
         for i in range(0, self.n_contexts_dim):
             self.context_dimensions_mlp_embedding.append(nn.Embedding(self.n_contexts_conditions[i], self.mlp_embedding_size).to(self.device))
             self.context_situation_mf_embedding.append(nn.Embedding(self.n_contexts_conditions[i], self.mf_embedding_size).to(self.device))
@@ -61,9 +65,9 @@ class NeuCMFi0(ContextRecommender):
         self.mlp_layers = MLPLayers([2 * self.mlp_embedding_size] + self.mlp_hidden_size, self.dropout_prob)
         self.mlp_layers.logger = None  # remove logger to use torch.save()
         if self.mf_train and self.mlp_train:
-            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size * self.n_contexts_dim + self.mlp_hidden_size[-1], 1)
+            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size + self.mlp_hidden_size[-1], 1)
         elif self.mf_train:
-            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size * self.n_contexts_dim, 1)
+            self.predict_layer = nn.Linear(num_mf_towers * self.mf_embedding_size, 1)
         elif self.mlp_train:
             self.predict_layer = nn.Linear(self.mlp_hidden_size[-1], 1)
 
@@ -81,14 +85,14 @@ class NeuCMFi0(ContextRecommender):
         user_mf_e = self.user_mf_embedding(user)
         item_mf_e = self.item_mf_embedding(item)
 
-        context_situation_mf_e = None
+        # Build one MF context embedding per context dimension, then fuse them by mean pooling.
+        # This keeps the pooled context vector in the same mf_embedding_size space as user/item.
+        context_situation_mf_e = []
         for i in range(0, self.n_contexts_dim):
             condition = context_situation_list[i]
-            embd = self.context_dimensions_mlp_embedding[i](condition)
-            if context_situation_mf_e is None:
-                context_situation_mf_e = embd
-            else:
-                context_situation_mf_e = torch.cat((context_situation_mf_e, embd), -1)
+            context_situation_mf_e.append(self.context_situation_mf_embedding[i](condition))
+        # Mean pooling avoids dimension explosion caused by concatenating all context dimensions.
+        context_situation_mf_e = torch.stack(context_situation_mf_e, dim=1).mean(dim=1)
 
         user_mlp_e = self.user_mlp_embedding(user)
         item_mlp_e = self.item_mlp_embedding(item)

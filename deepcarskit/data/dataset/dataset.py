@@ -953,15 +953,26 @@ class Dataset(object):
         if len(threshold) != 1:
             raise ValueError('Threshold length should be 1.')
 
+        threshold_to_binary = self.config.get('threshold_to_binary_label', True)
         self.set_field_property(self.label_field, FeatureType.FLOAT, FeatureSource.INTERACTION, 1)
+
         for field, value in threshold.items():
-            if field in self.inter_feat:
-                self.inter_feat[self.label_field] = (self.inter_feat[field] >= value).astype(int)
-            else:
+            if field not in self.inter_feat:
                 raise ValueError(f'Field [{field}] not in inter_feat.')
-            # drop rating column
-            if self.config['sigmoid']:
-                self._del_col(self.inter_feat, field)
+
+            if threshold_to_binary:
+                # Default behavior: convert label to 0/1 by threshold.
+                self.inter_feat[self.label_field] = (self.inter_feat[field] >= value).astype(int)
+                # drop rating/value column for ranking task after binary label generation
+                if self.config['eval_type'] == EvaluatorType.RANKING:
+                    self._del_col(self.inter_feat, field)
+            else:
+                # Optional behavior: keep original values as label and skip binarization.
+                if self.label_field not in self.inter_feat:
+                    self.inter_feat[self.label_field] = self.inter_feat[field].astype(float)
+                self.logger.warning(
+                    f'threshold_to_binary_label=False, skip binary conversion for [{field}] with threshold {value}.'
+                )
 
     def _get_remap_list(self, field_list):
         """Transfer set of fields in the same remapping space into remap list.

@@ -29,8 +29,15 @@ load_col: ~
 
 # used for topN ranking only
 LABEL_FIELD: label
+# items with rating >= threshold are considered as positive samples, otherwise negative samples
 threshold:
-    rating: 0
+    rating: 3
+
+# whether use the threshold above to convert rating to binary label for ranking task,
+# if False, the original rating will be used as the label for ranking task
+threshold_to_binary_label: False
+
+
 # the current library does not support negative sampling
 neg_sampling: ~
 
@@ -69,7 +76,7 @@ embedding_size: 64
 ############### Evaluation setting ###############
 eval_args:
   # split: {'RS': [0.8, 0.2]} # hold-out evaluation
-  split: {'CV': 5, 'num_processes': 4} # N-fold cross validation by multiprocessing
+  split: {'CV': 5, 'num_processes': 1} # N-fold cross validation by multiprocessing
   group_by: user
   mode: labeled # do not change it, DeepCARSKit only support this mode
   order: RO
@@ -77,9 +84,8 @@ eval_args:
 # indicate the task is ranking or rating prediction
 # evaluation metrics automatically selected based on True/False setting here
 ranking: True
-# indicate activation function for ranking task
-# LeakyReLu is the default activation function for both ranking or rating prediction
-sigmoid: False
+# examples: leakyrelu, sigmoid, relu, tanh, gelu, identity
+out_activation: gelu
 
 # define metrics for ranking and rating prediction tasks
 ranking_valid_metric: Recall@10
@@ -92,7 +98,7 @@ err_metrics: ['MAE','RMSE','AUC']
 ############### Output setting ###############
 loss_decimal_place: 4
 metric_decimal_place: 4
-save_per_uc_metrics: True
+save_per_uc_metrics: False
 save_per_uc_folder: saved
 
 

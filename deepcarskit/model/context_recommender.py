@@ -4,11 +4,13 @@
 import numpy as np
 import torch
 import torch.nn as nn
+from logging import getLogger
 
 from recbole.model.abstract_recommender import AbstractRecommender
 from recbole.model.layers import FMEmbedding
 from recbole.utils import ModelType, InputType, FeatureSource, FeatureType, set_color, EvaluatorType
 from deepcarskit.model.layers import FMFirstOrderLinear
+from deepcarskit.utils import build_activation
 
 class ContextRecommender(AbstractRecommender):
     """This is a abstract context-aware recommender. All the context-aware model should implement this class.
@@ -17,6 +19,7 @@ class ContextRecommender(AbstractRecommender):
     """
     type = ModelType.CONTEXT
     input_type = InputType.POINTWISE
+    _warned_messages = set()
 
     def __init__(self, config, dataset):
         super(ContextRecommender, self).__init__()
@@ -36,15 +39,40 @@ class ContextRecommender(AbstractRecommender):
         self.ITEM_ID = config['ITEM_ID_FIELD']
         self.CONTEXT_SITUATION_ID = config['CONTEXT_SITUATION_FIELD']
 
-        self.actfun = nn.LeakyReLU()
-        self.loss = nn.MSELoss()
+        self._loss_type = 'mse'
         if config['ranking']:
             self.LABEL = config['LABEL_FIELD']
-            if config['sigmoid']:
-                self.actfun = nn.Sigmoid()
-                self.loss = nn.BCELoss()
+            label_is_binary = self._is_binary_label(dataset, self.LABEL)
+            if label_is_binary:
+                self._loss_type = 'bce'
+                self._bce_loss = nn.BCELoss()
+                self.loss = self._safe_bce_loss
+                self._warning_once(
+                    'ranking_binary_bce',
+                    'ranking=True and binary label detected, using BCELoss.'
+                )
+            else:
+                self._loss_type = 'mse'
+                self.loss = nn.MSELoss()
+                self._warning_once(
+                    'ranking_nonbinary_mse',
+                    'ranking=True but non-binary label, fallback to MSELoss.'
+                )
+            default_act = 'sigmoid' if self._loss_type == 'bce' else 'leakyrelu'
         else:
             self.LABEL = config['RATING_FIELD']
+            self._loss_type = 'mse'
+            self.loss = nn.MSELoss()
+            default_act = 'leakyrelu'
+
+        act_name = str(config.get('out_activation', default_act)).lower().strip()
+        if self._loss_type == 'bce' and act_name != 'sigmoid':
+            self._warning_once(
+                f'bce_force_sigmoid_from_{act_name}',
+                f"BCELoss requires probability output, forcing out_activation from '{act_name}' to 'sigmoid'."
+            )
+            act_name = 'sigmoid'
+        self.actfun = build_activation(act_name)
 
         self.CONTEXTS = []
         for i in range(2, len(self.field_names)):
@@ -143,6 +171,34 @@ class ContextRecommender(AbstractRecommender):
                 self.token_seq_embedding_table.append(nn.Embedding(token_seq_field_dim, self.embedding_size))
 
         self.first_order_linear = FMFirstOrderLinear(config, dataset)
+
+    def _warning_once(self, key, message):
+        if key in ContextRecommender._warned_messages:
+            return
+        # Use root logger to keep the global RecBole log formatter (timestamp/level) in all run modes.
+        getLogger().warning(message)
+        ContextRecommender._warned_messages.add(key)
+
+    def _safe_bce_loss(self, output, label):
+        # BCELoss requires probabilities in [0, 1].
+        # Clamp to avoid CUDA device-side asserts when users choose non-sigmoid output activations.
+        output = torch.clamp(output, min=1e-7, max=1 - 1e-7)
+        return self._bce_loss(output, label.float())
+
+    def _is_binary_label(self, dataset, label_field):
+        if not hasattr(dataset, 'inter_feat'):
+            return False
+        if label_field not in dataset.inter_feat:
+            return False
+
+        label = dataset.inter_feat[label_field]
+        if not torch.is_tensor(label):
+            label = torch.as_tensor(label)
+        if label.numel() == 0:
+            return False
+
+        unique_vals = torch.unique(label.detach().float().cpu())
+        return torch.all((unique_vals == 0) | (unique_vals == 1)).item()
 
     def embed_float_fields(self, float_fields, embed=True):
         """Embed the float feature columns

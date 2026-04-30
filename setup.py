@@ -27,7 +27,7 @@ if on_rtd:
 setup(
     name='deepcarskit',
     version=
-    '1.0.1',  # please remember to edit deepcarskit/__init__.py in response, once updating the version
+    '2.0.0',  # please remember to edit deepcarskit/__init__.py in response, once updating the version
     description='A Deep Learning Based Context-Aware Recommendation Library',
     long_description_content_type="text/markdown",
     url='https://github.com/irecsys/DeepCARSKit',

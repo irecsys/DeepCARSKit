@@ -31,7 +31,6 @@ from torch.nn.init import xavier_normal_
 
 from deepcarskit.model.context_recommender import ContextRecommender
 from recbole.model.layers import BaseFactorizationMachine
-from recbole.utils import EvaluatorType
 
 
 class FM(ContextRecommender):
@@ -45,16 +44,6 @@ class FM(ContextRecommender):
 
         # define layers and loss
         self.fm = BaseFactorizationMachine(reduce_sum=True)
-        self.config = config
-
-        if self.config['eval_type'] == EvaluatorType.RANKING:
-            self.actfun = nn.Sigmoid()
-            self.loss = nn.BCELoss()
-            self.LABEL = self.config['LABEL_FIELD']
-        else:
-            self.actfun = nn.LeakyReLU()
-            self.loss = nn.MSELoss()
-            self.LABEL = self.config['RATING_FIELD']
 
         # parameters initialization
         self.apply(self._init_weights)

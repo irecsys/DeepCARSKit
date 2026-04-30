@@ -8,8 +8,28 @@ deepcarskit.utils.utils
 
 
 import importlib
+import torch.nn as nn
 
 from recbole.utils.enum_type import ModelType
+
+
+def build_activation(name: str) -> nn.Module:
+    key = (name or "leakyrelu").strip().lower()
+    mapping = {
+        "leakyrelu": nn.LeakyReLU(),
+        "sigmoid": nn.Sigmoid(),
+        "relu": nn.ReLU(),
+        "tanh": nn.Tanh(),
+        "gelu": nn.GELU(),
+        "identity": nn.Identity(),
+    }
+    if key not in mapping:
+        raise ValueError(
+            f"Unsupported out_activation='{name}'. "
+            f"Choose from: {list(mapping.keys())}"
+        )
+    return mapping[key]
+    
 
 def get_model(model_name):
     r"""Automatically select model class based on model name
