@@ -13,3 +13,4 @@ log_tensorboard/
 doc/
 **/__pycache__/
 .idea/
+test/
