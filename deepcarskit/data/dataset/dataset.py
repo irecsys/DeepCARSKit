@@ -36,7 +36,7 @@ from scipy.sparse import coo_matrix
 from recbole.data.interaction import Interaction
 from recbole.utils import FeatureSource, FeatureType, get_local_time, set_color, EvaluatorType
 from recbole.utils.url import decide_download, download_url, extract_zip, makedirs, rename_atomic_files
-from sklearn.model_selection import KFold, StratifiedKFold
+from sklearn.model_selection import KFold, GroupKFold
 
 
 class Dataset(object):
@@ -1553,38 +1553,26 @@ class Dataset(object):
         tot_cnt = self.__len__()
         tot_inds = numpy.arange(0, tot_cnt, 1).reshape(-1)
         folds_ind_dict = {}
-        target = self.inter_feat[self.label_field]
 
         if group_by is None:
-            skf = KFold(n_splits=folds, random_state=233, shuffle=True)
-            folds_inds = skf.split(tot_inds, target)
-            i = 1
-            for train_index, test_index in folds_inds:
-                list = []
-                list.append(train_index)
-                list.append(test_index)
-                folds_ind_dict[i] = list
-                i = i + 1
-
+            kf = KFold(n_splits=folds, random_state=233, shuffle=True)
+            folds_inds = kf.split(tot_inds)
         else:
-            skf = KFold(n_splits=folds, random_state=233, shuffle=True)
-            continuous = False
-            for rate in target:
-                continuous = not ((rate - int(rate)) == 0)
-                if continuous:
-                    break
+            groups = self.inter_feat[group_by].numpy()
+            unique_group_num = len(np.unique(groups))
+            if folds > unique_group_num:
+                raise ValueError(
+                    f'For grouped CV, n_splits=[{folds}] cannot be greater than the number of unique groups '
+                    f'in [{group_by}] which is [{unique_group_num}].'
+                )
+            gkf = GroupKFold(n_splits=folds)
+            folds_inds = gkf.split(tot_inds, groups=groups)
 
-            if continuous:
-                target = torch.from_numpy(pandas.cut(target.cpu().detach().numpy(), 5, labels=False))
-
-            folds_inds = skf.split(tot_inds, target, self.inter_feat[group_by])
-            i = 1
-            for train_index, test_index in folds_inds:
-                list = []
-                list.append(train_index)
-                list.append(test_index)
-                folds_ind_dict[i] = list
-                i = i + 1
+        i = 1
+        for train_index, test_index in folds_inds:
+            fold_indices = [train_index, test_index]
+            folds_ind_dict[i] = fold_indices
+            i += 1
 
         self._drop_unused_col()
         ds_split_dict = {}
@@ -1716,6 +1704,8 @@ class Dataset(object):
                 datasets = self.split_by_folds(split_args['CV'], group_by=None)
             elif group_by == 'user':
                 datasets = self.split_by_folds(split_args['CV'], group_by=self.uid_field)
+            else:
+                raise NotImplementedError(f'The grouping method [{group_by}] has not been implemented.')
         else:
             raise NotImplementedError(f'The splitting_method [{split_mode}] has not been implemented.')
 
